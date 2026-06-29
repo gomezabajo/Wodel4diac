@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Automatic-Module-Name: anatlyzer.ocl.emf
+Bundle-Name: OCL handling for EMF
+Bundle-SymbolicName: anatlyzer.ocl.emf;singleton:=true
+Bundle-Version: 0.8.0
+Bundle-Activator: anatlyzer.ocl.emf.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ocl,
+ org.eclipse.ocl.ecore,
+ org.eclipse.emf.ecore,
+ anatlyzer.atl.typing;bundle-version="0.5.1",
+ org.junit;resolution:=optional,
+ anatlyzer.atl.editor,
+ org.eclipse.core.commands,
+ org.eclipse.ui.workbench,
+ org.eclipse.jface,
+ org.eclipse.core.resources,
+ org.eclipse.ui,
+ org.eclipse.ocl.xtext.completeocl.ui,
+ org.eclipse.ocl.pivot,
+ anatlyzer.use.witness,
+ anatlyzer.atl.standalone.api
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Bundle-ActivationPolicy: lazy
+Export-Package: anatlyzer.ocl.emf,
+ anatlyzer.ocl.emf.editor

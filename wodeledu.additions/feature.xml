@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="wodeledu.additions"
+      label="Wodel-Edu extended features"
+      version="1.0.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import feature="wodel.wodeledu" version="1.0.0.qualifier"/>
+   </requires>
+
+   <plugin
+         id="wodeledu.model2text.dfa"
+         version="0.0.0"/>
+
+   <plugin
+         id="wodeledu.model2text.lc"
+         version="0.0.0"/>
+
+   <plugin
+         id="wodeledu.extension.examples"
+         version="0.0.0"/>
+
+   <plugin
+         id="wodeledu.model2text.py"
+         version="0.0.0"/>
+
+</feature>
