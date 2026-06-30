@@ -166,9 +166,9 @@ where applicable, the Wodel4diac work (WIP):
 Wodel4diac builds upon and redistributes components from several projects, including:
 
 - **[Wodel](https://github.com/gomezabajo/Wodel)** and the Wodel ecosystem (Wodel-Edu, Wodel-Test).
-- **anATLyzer** — static analysis of ATL transformations (`anatlyzer.*`).
-- **eFinder** — model finding / constraint solving (`efinder.*`).
-- **tinytools** — supporting EMF utilities (`tinytools.*`).
+- **[anATLyzer](https://github.com/anatlyzer/anatlyzer)** — static analysis of ATL transformations (`anatlyzer.*`).
+- **[eFinder](https://github.com/jesusc/efinder)** — model finding / constraint solving (`efinder.*`).
+- **[tinytools](https://github.com/jesusc/tiny-tools)** — supporting EMF utilities (`tinytools.*`).
 
 Developed in the context of work at the Universidad Autónoma de Madrid.
 
