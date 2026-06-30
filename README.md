@@ -170,7 +170,7 @@ Wodel4diac builds upon and redistributes components from several projects, inclu
 - **[eFinder](https://github.com/jesusc/efinder)** — model finding / constraint solving (`efinder.*`).
 - **[tinytools](https://github.com/jesusc/tiny-tools)** — supporting EMF utilities (`tinytools.*`).
 
-Developed in the context of work at the Universidad Autónoma de Madrid.
+Developed in the context of work at the Universidad Autónoma de Madrid and the Universidad de Murcia.
 
 ## License
 
