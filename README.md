@@ -3,9 +3,9 @@
 <p align="center"><i>A domain-specific language for model mutation — compatible with <a href="https://eclipse.dev/4diac/">Eclipse 4diac</a></i></p>
 
 <p align="center">
-  <a href="https://github.com/gomezabajo/Wodel4diac/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gomezabajo/Wodel4diac?style=for-the-badge" alt="License"></a>
-  <img src="https://img.shields.io/badge/Java-89.5%25-blue?style=for-the-badge" alt="Java">
-  <img src="https://img.shields.io/badge/platform-Eclipse-2c2255?style=for-the-badge" alt="Eclipse">
+  <a href="https://github.com/gomezabajo/Wodel4diac/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gomezabajo/Wodel4diac" alt="License"></a>
+  <img src="https://img.shields.io/badge/Java-89.5%25-blue" alt="Java">
+  <img src="https://img.shields.io/badge/platform-Eclipse-2c2255" alt="Eclipse">
 </p>
 
 <p align="center">
