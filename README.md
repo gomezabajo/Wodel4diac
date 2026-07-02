@@ -74,11 +74,12 @@ On top of the standard Wodel ecosystem, this repository contributes:
 
 ## Installation
 
-### Option A — Install into Eclipse via the update sites (recommended)
+### Option A — Install into Eclipse via the update site (recommended)
 
 1. In Eclipse (with the 4diac IDE features installed), open **Help -> Install New Software...**
-2. Add the update sites built from this repository:
-   - https://gomezabajo.github.io/Wodel4diac/update-site
+2. Add the update site built from this repository
+   ([`wodel.updatesite`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.updatesite)):
+   - https://raw.githubusercontent.com/gomezabajo/Wodel4diac/main/wodel.updatesite
 3. Select the **Wodel4diac** features and complete the wizard.
 4. Restart Eclipse.
 
@@ -95,25 +96,38 @@ with 4diac 3.2.0 installed.
 
 ## Quick start
 
-> [`wodel.examples`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.examples) /
-> [`wodel.project.examples`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.project.examples),
-> and adjust the syntax to the grammar in
+> Real, runnable Wodel programs are included under
+> [`wodeltest.extension.examples/mutator`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodeltest.extension.examples/mutator)
+> (ATL, Java, finite automata, and more). The grammar is defined in
 > [`wodel.dsls.wodel`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.dsls.wodel).
 
-1. Create (or open) a Wodel project and add a `.wodel` program.
+1. Create (or open) a Wodel project and add a `.mutator` program.
 2. Point it at a seed 4diac model and the corresponding meta-model.
 3. Run it to generate mutants; the 4diac post-processor writes them out as 4diac projects.
 
-```wodel
-// example.wodel — illustrative only
-generate 10 mutants in "out/" from "seed.<4diac-extension>"
-metamodel "<IEC-61499 / 4diac metamodel URI>"
+The mutation language is standard Wodel. As a taste of the real syntax, here is an abridged
+excerpt from
+[`wodeltest.extension.examples/mutator/fa/testFA1.mutator`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodeltest.extension.examples/mutator/fa),
+which ships with this repository (it mutates finite automata; the same operators apply to
+4diac / IEC 61499 models through the `wodel.fordiac` integration):
 
-with commands {
-    // e.g. remove a connection between two function blocks
-    cmd1 "remove connection" { remove one <Connection> where { ... } }
-    // e.g. change the type of a function block instance
-    cmd2 "retype function block" { retype one <FB> as <SiblingType> }
+```
+generate 10 mutants
+in "data/out/"
+from "data/model/"
+metamodel "/[@**@]/data/model/DFAAutomaton.ecore"
+
+with blocks {
+	dtr "Delete transition" {
+		remove one Transition
+	}
+	mfs "Set final state to non-final" {
+		modify one State where {isFinal = true} with {reverse(isFinal)}
+	}
+	rts "Set transition's target to a new final state" {
+		s = create State with {name = 'f', isFinal = true}
+		modify target tar from one Transition to s
+	}
 }
 ```
 
@@ -158,7 +172,6 @@ where applicable, the Wodel4diac work (WIP):
   year      = {2016},
   doi       = {10.1145/2851613.2851751}
 }
-
 ```
 
 ## Acknowledgements and third-party components
