@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/gomezabajo/Wodel4diac/">
+    <img src="https://gomezabajo.github.io/Wodel/images/wodel4diac.png" width="224" height="120" alt="Wodel logo" />
+  </a>
+</p>
+
 <h1 align="center">Wodel4diac</h1>
 
 <p align="center"><i>A domain-specific language for model mutation — compatible with <a href="https://eclipse.dev/4diac/">Eclipse 4diac</a></i></p>
