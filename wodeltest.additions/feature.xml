@@ -25,6 +25,7 @@
       <import plugin="org.eclipse.m2m.atl.dsls"/>
       <import plugin="org.eclipse.m2m.atl.emftvm"/>
       <import plugin="org.eclipse.m2m.atl.engine.emfvm.launch"/>
+      <import plugin="org.eclipse.m2m.atl.adt"/>
       <import plugin="org.junit"/>
       <import plugin="org.eclipse.modisco.java.discoverer"/>
       <import plugin="org.eclipse.modisco.infra.discovery.core"/>
@@ -152,6 +153,26 @@
          version="0.0.0"/>
 
    <plugin
+         id="tinytools.debug"
+         version="0.0.0"/>
+
+   <plugin
+         id="tinytools.emf.freemarker"
+         version="0.0.0"/>
+
+   <plugin
+         id="tinytools.metamodel.registerMetamodel"
+         version="0.0.0"/>
+
+   <plugin
+         id="tinytools.metamodel.staticfacade"
+         version="0.0.0"/>
+
+   <plugin
+         id="tinytools.text.textresource2xmi"
+         version="0.0.0"/>
+
+   <plugin
          id="efinder.core"
          version="0.0.0"/>
 
@@ -177,26 +198,6 @@
 
    <plugin
          id="efinder.usemv"
-         version="0.0.0"/>
-
-   <plugin
-         id="tinytools.debug"
-         version="0.0.0"/>
-
-   <plugin
-         id="tinytools.emf.freemarker"
-         version="0.0.0"/>
-
-   <plugin
-         id="tinytools.metamodel.registerMetamodel"
-         version="0.0.0"/>
-
-   <plugin
-         id="tinytools.metamodel.staticfacade"
-         version="0.0.0"/>
-
-   <plugin
-         id="tinytools.text.textresource2xmi"
          version="0.0.0"/>
 
 </feature>
