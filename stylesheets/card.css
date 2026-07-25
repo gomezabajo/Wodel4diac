@@ -1,0 +1,48 @@
+      /* ============================================================
+         Card sections ("How Wodel works" and "Architecture overview"),
+         shaped after the EMF Kaizen website layout and restyled with
+         the Wodel identity: deep purple -> coral, with slate accents.
+         ============================================================ */
+      .wk-figure {
+        display: block;
+        max-width: 720px;
+        width: 100%;
+        margin: 24px auto;
+        border-radius: 8px;
+        border: 1px solid #ded4e6;
+        background: #fff;
+      }
+      .wk-figure-small { max-width: 560px; }
+      .wk-figure-plain { border: none; }
+      .wk-figure-caption {
+        text-align: center;
+        font-size: 14px;
+        color: #6e7681;
+        margin-top: 12px;
+        line-height: 1.45;
+      }
+      .wk-figure-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        max-width: 860px;
+        margin: 26px auto;
+      }
+      .wk-figure-grid img {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #ded4e6;
+        background: #fff;
+      }
+      .wk-figure-grid-bottom { max-width: 480px; margin: 18px auto 0; }
+      .wk-figure-grid-bottom img {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #ded4e6;
+        background: #fff;
+      }
+      @media screen and (max-width: 42em) {
+        .wk-card { padding: 22px 18px; }
+        .wk-step { padding: 18px 16px; }
+        .wk-figure-grid { grid-template-columns: 1fr; }
+      }
