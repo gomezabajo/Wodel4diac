@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opsem:EventManager xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:libraryElement="org.eclipse.fordiac.ide.model.libraryElement" xmlns:opsem="http://OperationalSemantics/1.0">
+  <transactions xsi:type="opsem:FBTransaction">
+    <inputEventOccurrence xsi:type="opsem:EventOccurrence">
+      <event xsi:type="libraryElement:Event" href="../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1/@interface/@eventInputs.1"/>
+      <fbRuntime xsi:type="opsem:FBNetworkRuntime">
+        <fbnetwork xsi:type="libraryElement:FBNetwork" href="../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork"/>
+      </fbRuntime>
+      <parentFB xsi:type="libraryElement:FB" href="../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+      <resultFBRuntime xsi:type="opsem:FBNetworkRuntime">
+        <fbnetwork xsi:type="libraryElement:FBNetwork" href="../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork"/>
+        <typeRuntimes xsi:type="opsem:RuntimeMap">
+          <key xsi:type="libraryElement:FB" href="../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+          <value xsi:type="opsem:BasicFBTypeRuntime" activeState="START">
+            <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_SR" comment="Event-driven bistable">
+              <versionInfo xsi:type="libraryElement:VersionInfo"/>
+              <identification xsi:type="libraryElement:Identification"/>
+            </basicfbtype>
+          </value>
+        </typeRuntimes>
+      </resultFBRuntime>
+    </inputEventOccurrence>
+  </transactions>
+</opsem:EventManager>

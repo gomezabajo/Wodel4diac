@@ -1,0 +1,688 @@
+package mutator.MutationTestingAppDynamic;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.AbstractMap.SimpleEntry;
+import wodel.utils.manager.IWodelTest;
+import wodel.utils.manager.ModelManager;
+import wodel.utils.manager.MutatorMetricsGenerator;
+import wodel.utils.manager.DebugMutatorMetricsGenerator;
+import wodel.utils.manager.NetMutatorMetricsGenerator;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import appliedMutations.*;
+import wodel.utils.commands.*;
+import wodel.utils.commands.selection.strategies.*;
+import wodel.utils.commands.strategies.*;
+import wodel.utils.exceptions.AbstractCreationException;
+import wodel.utils.exceptions.MaxSmallerThanMinException;
+import wodel.utils.exceptions.MetaModelNotFoundException;
+import wodel.utils.exceptions.ModelNotFoundException;
+import wodel.utils.exceptions.ObjectNoTargetableException;
+import wodel.utils.exceptions.ObjectNotContainedException;
+import wodel.utils.exceptions.ReferenceNonExistingException;
+import wodel.utils.exceptions.WrongAttributeTypeException;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.core.runtime.IProgressMonitor;
+import wodel.utils.manager.MutatorUtils;
+import wodel.utils.manager.EMFCopier;
+import mutatorenvironment.MutatorenvironmentPackage;
+import mutatormetrics.MutatormetricsPackage;
+import wodel.utils.manager.EMFDiff;
+import wodel.utils.manager.EMFDiff.ModelDelta;
+
+public class MutationTestingAppDynamic extends MutatorUtils {
+	private Map<Integer, Mutator> overallMutators = new LinkedHashMap<Integer, Mutator>();
+	private List<EObject> mutatedObjects = null;
+
+	private int mutation1(List<EPackage> packages, Resource model,
+			Map<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>> hmObjects,
+			Map<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>> hmList,
+			Map<String, String> hashmapModelFilenames, String modelFilename, List<String> mutPaths,
+			Map<String, EObject> hmMutator, Resource seed, Map<String, EPackage> registeredPackages,
+			Map<String, EPackage> localRegisteredPackages, Map<String, String> hashmapModelFolders, String ecoreURI,
+			boolean registry, Set<String> hashsetMutantsBlock, List<String> fromNames,
+			Map<String, List<String>> hashmapMutVersions, Mutations muts, IProject project, IProgressMonitor monitor,
+			int[] k, boolean serialize, IWodelTest test, Map<String, List<String>> classes)
+			throws ReferenceNonExistingException, MetaModelNotFoundException, ModelNotFoundException,
+			ObjectNotContainedException, ObjectNoTargetableException, AbstractCreationException,
+			WrongAttributeTypeException, IOException {
+		int numMutantsGenerated = 0;
+		List<ObSelectionStrategy> containerSelectionList = new ArrayList<ObSelectionStrategy>();
+		List<SpecificReferenceSelection> referenceSelectionList = new ArrayList<SpecificReferenceSelection>();
+		List<EPackage> resourcePackages = new ArrayList<EPackage>();
+		List<Resource> resources = new ArrayList<Resource>();
+		resources.add(model);
+		resourcePackages.addAll(packages);
+		RandomTypeSelection rts = new RandomTypeSelection(packages, model, "Event");
+		rts = new RandomTypeSelection(packages, model, "Event");
+		List<EObject> objects = rts.getObjects();
+		for (EObject object : objects) {
+			ObSelectionStrategy objectSelection = null;
+			Resource resource = ModelManager.cloneModel(model, model.getURI().toFileString());
+			object = ModelManager.getObject(resource, object);
+			if (object != null) {
+				objectSelection = new SpecificObjectSelection(packages, resource, object);
+				SelectObjectMutator mut = new SelectObjectMutator(objectSelection.getModel(),
+						objectSelection.getMetaModel(), null, null, objectSelection);
+				Mutator mutator = null;
+				if (muts == null) {
+					muts = AppliedMutationsFactory.eINSTANCE.createMutations();
+				}
+				if (mut != null) {
+					Object mutated = mut.mutate();
+					if (mutated != null) {
+						SimpleEntry<Resource, List<EPackage>> resourceEntry = new SimpleEntry(mut.getModel(),
+								mut.getMetaModel());
+						SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>> entry = new SimpleEntry(
+								mut.getObject(), resourceEntry);
+						hmObjects.put("ev", entry);
+						AppMutation appMut = registry1(mut, hmMutator, seed, resource, mutPaths, packages);
+						if (appMut != null) {
+							muts.getMuts().add(appMut);
+						}
+					}
+				}
+				mutator = mut;
+				if (mutator != null) {
+					mutation2(packages, resource, hmObjects, hmList, hashmapModelFilenames, modelFilename, mutPaths,
+							hmMutator, seed, registeredPackages, localRegisteredPackages, hashmapModelFolders, ecoreURI,
+							registry, hashsetMutantsBlock, fromNames, hashmapMutVersions, muts, project, monitor, k,
+							serialize, test, classes);
+					numMutantsGenerated = k[0];
+				}
+			}
+		}
+		return numMutantsGenerated;
+	}
+
+	private AppMutation registry1(Mutator mut, Map<String, EObject> hmMutator, Resource seed, Resource mutant,
+			List<String> mutPaths, List<EPackage> packages) {
+		AppMutation appMut = null;
+		if (hmMutator.get("m1") != null) {
+			appMut = AppliedMutationsFactory.eINSTANCE.createAppMutation();
+			appMut.setDef(hmMutator.get("m1"));
+		}
+		return appMut;
+	}
+
+	private int mutation2(List<EPackage> packages, Resource model,
+			Map<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>> hmObjects,
+			Map<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>> hmList,
+			Map<String, String> hashmapModelFilenames, String modelFilename, List<String> mutPaths,
+			Map<String, EObject> hmMutator, Resource seed, Map<String, EPackage> registeredPackages,
+			Map<String, EPackage> localRegisteredPackages, Map<String, String> hashmapModelFolders, String ecoreURI,
+			boolean registry, Set<String> hashsetMutantsBlock, List<String> fromNames,
+			Map<String, List<String>> hashmapMutVersions, Mutations muts, IProject project, IProgressMonitor monitor,
+			int[] k, boolean serialize, IWodelTest test, Map<String, List<String>> classes)
+			throws ReferenceNonExistingException, MetaModelNotFoundException, ModelNotFoundException,
+			ObjectNotContainedException, ObjectNoTargetableException, AbstractCreationException,
+			WrongAttributeTypeException, IOException {
+		int numMutantsGenerated = 0;
+		List<EObject> objects = new ArrayList<EObject>();
+		ObSelectionStrategy objectSelection = null;
+		if (hmObjects.get("ev") != null) {
+			SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>> entry_ev = hmObjects.get("ev");
+			EObject recovered = ModelManager.getObject(model, entry_ev.getKey());
+			if (recovered == null) {
+				recovered = entry_ev.getKey();
+			}
+			objectSelection = new SpecificObjectSelection(packages, model, recovered);
+		} else {
+			if (hmList.get("ev") != null) {
+				List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>> listEntry_ev = hmList.get("ev");
+				List<EObject> objs = new ArrayList<EObject>();
+				for (SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>> ent : listEntry_ev) {
+					EObject obj = ModelManager.getObject(model, ent.getKey());
+					objs.add(obj);
+				}
+				objectSelection = new SpecificObjectSelection(packages, model, objs);
+			} else {
+				return numMutantsGenerated;
+			}
+		}
+		if (objectSelection != null) {
+			objects.add(objectSelection.getObject());
+		}
+		for (EObject object : objects) {
+			String modelsFolder = ModelManager.getModelsFolder(this.getClass());
+			String tempModelsFolder = modelsFolder.replace(modelsFolder.indexOf("/") > 0
+					? modelsFolder.substring(modelsFolder.indexOf("/") + 1, modelsFolder.length())
+					: modelsFolder, "temp");
+			modelsFolder = modelsFolder.replace("/", "\\");
+			tempModelsFolder = tempModelsFolder.replace("/", "\\");
+			Resource resource = ModelManager.cloneModel(model,
+					model.getURI().toFileString().replace(modelsFolder + "\\", tempModelsFolder + "\\")
+							.replace(".model", ".mutation2." + numMutantsGenerated + ".model"));
+			ObSelectionStrategy obSelection = null;
+			object = ModelManager.getObject(resource, object);
+			if (object != null) {
+				obSelection = new SpecificObjectSelection(packages, resource, object);
+				Map<String, List<AttributeConfigurationStrategy>> attsList = new LinkedHashMap<String, List<AttributeConfigurationStrategy>>();
+				if (obSelection != null) {
+					List<AttributeConfigurationStrategy> atts = null;
+					if (attsList.get("comment") != null) {
+						atts = attsList.get("comment");
+					} else {
+						atts = new ArrayList<AttributeConfigurationStrategy>();
+					}
+					AttributeConfigurationStrategy attConfig = null;
+					attConfig = new SpecificStringConfigurationStrategy("made by Pablo");
+					atts.add(attConfig);
+					attsList.put("comment", atts);
+				}
+				Map<String, List<ReferenceConfigurationStrategy>> refsList = new LinkedHashMap<String, List<ReferenceConfigurationStrategy>>();
+				Map<String, List<AttributeConfigurationStrategy>> attsRefList = new LinkedHashMap<String, List<AttributeConfigurationStrategy>>();
+				List<EObject> objsAttRef = new ArrayList<EObject>();
+				ModifyInformationMutator mut = new ModifyInformationMutator(obSelection.getModel(),
+						obSelection.getMetaModel(), obSelection, attsList, refsList, objsAttRef, attsRefList);
+				Mutator mutator = null;
+				if (muts == null) {
+					muts = AppliedMutationsFactory.eINSTANCE.createMutations();
+				}
+				if (mut != null) {
+					Object mutated = mut.mutate();
+					if (mutated != null) {
+						AppMutation appMut = registry2(mut, hmMutator, seed, obSelection.getModel(), mutPaths,
+								packages);
+						if (appMut != null) {
+							muts.getMuts().add(appMut);
+						}
+					}
+				}
+				mutator = mut;
+				if (mutator != null) {
+					Map<String, List<String>> rules = new LinkedHashMap<String, List<String>>();
+					String mutFilename = hashmapModelFilenames.get(modelFilename) + "/m1/Output" + k[0] + ".model";
+					boolean isRepeated = registryMutantWithBlocks(ecoreURI, packages, registeredPackages,
+							localRegisteredPackages, seed, mutator.getModel(), rules, muts, modelFilename, mutFilename,
+							registry, hashsetMutantsBlock, hashmapModelFilenames, hashmapModelFolders, "m1", fromNames,
+							k, mutPaths, hashmapMutVersions, project, serialize, test, classes, this.getClass(), true,
+							false);
+					if (isRepeated == false) {
+						numMutantsGenerated++;
+						monitor.worked(1);
+						k[0] = k[0] + 1;
+					}
+					if (muts != null) {
+						muts.getMuts().clear();
+					}
+				}
+			}
+		}
+		return numMutantsGenerated;
+	}
+
+	private AppMutation registry2(Mutator mut, Map<String, EObject> hmMutator, Resource seed, Resource mutant,
+			List<String> mutPaths, List<EPackage> packages) {
+		AppMutation appMut = null;
+		InformationChanged icMut = AppliedMutationsFactory.eINSTANCE.createInformationChanged();
+		ModifyInformationMutator mutator = (ModifyInformationMutator) mut;
+		icMut.setObject(mut.getObject());
+		EList<AttributeChanged> attsMut = icMut.getAttChanges();
+		Object oldAttVal = null;
+		Object newAttVal = null;
+		AttributeChanged attMut0 = null;
+		attMut0 = AppliedMutationsFactory.eINSTANCE.createAttributeChanged();
+		attMut0.setAttName("comment");
+		oldAttVal = mutator.getOldAttValue("comment");
+		newAttVal = mutator.getNewAttValue("comment");
+		if (oldAttVal != null) {
+			attMut0.setOldVal(oldAttVal.toString());
+		}
+		if (newAttVal != null) {
+			attMut0.setNewVal(newAttVal.toString());
+		}
+		if (hmMutator.get("m2") != null) {
+			attMut0.setDef(hmMutator.get("m2"));
+			attsMut.add(attMut0);
+			icMut.setDef(hmMutator.get("m2"));
+		} else {
+			attMut0 = null;
+			icMut = null;
+		}
+		appMut = icMut;
+		return appMut;
+	}
+
+	public int block_m1(int maxAttempts, int numMutants, boolean registry, List<EPackage> packages,
+			Map<String, EPackage> registeredPackages, Map<String, EPackage> localRegisteredPackages,
+			List<String> fromNames, Map<String, Set<String>> hashmapMutants,
+			Map<String, List<String>> hashmapMutVersions, IProject project, IProgressMonitor monitor, int[] k,
+			boolean serialize, IWodelTest test, Map<String, List<String>> classes)
+			throws ReferenceNonExistingException, WrongAttributeTypeException, MaxSmallerThanMinException,
+			AbstractCreationException, ObjectNoTargetableException, ObjectNotContainedException,
+			MetaModelNotFoundException, ModelNotFoundException, IOException {
+		int numMutantsGenerated = 0;
+		if (maxAttempts <= 0) {
+			maxAttempts = 1;
+		}
+		String ecoreURI = "/MutationTestingApp/data/model/lib.ecore";
+		String modelURI = MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.replace("/bin/", "/") + "data/model/";
+		String modelsURI = MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.replace("/bin/", "/") + "data/out/";
+		Map<String, String> hashmapModelFilenames = new LinkedHashMap<String, String>();
+		Map<String, String> hashmapModelFolders = new LinkedHashMap<String, String>();
+		Map<String, String> seedModelFilenames = new LinkedHashMap<String, String>();
+		File[] files = new File(modelURI).listFiles();
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isFile() == true) {
+				if (files[i].getName().endsWith(".model") == true) {
+					if (fromNames.size() == 0) {
+						String pathfile = files[i].getPath();
+						if (pathfile.endsWith(".model") == true) {
+							hashmapModelFilenames.put(pathfile, modelsURI
+									+ files[i].getName().substring(0, files[i].getName().length() - ".model".length()));
+							seedModelFilenames.put(pathfile, files[i].getPath());
+						}
+					} else {
+						for (String fromName : fromNames) {
+							String modelFolder = modelsURI
+									+ files[i].getName().substring(0, files[i].getName().length() - ".model".length())
+									+ "/" + fromName + "/";
+							File[] mutFiles = new File(modelFolder).listFiles();
+							if (mutFiles != null) {
+								for (int j = 0; j < mutFiles.length; j++) {
+									if (mutFiles[j].isFile() == true) {
+										String pathfile = mutFiles[j].getPath();
+										if (pathfile.endsWith(".model") == true) {
+											hashmapModelFilenames.put(pathfile, modelsURI + files[i].getName()
+													.substring(0, files[i].getName().length() - ".model".length()));
+											hashmapModelFolders.put(pathfile, fromName + "/" + mutFiles[j].getName()
+													.substring(0, mutFiles[j].getName().length() - ".model".length()));
+											seedModelFilenames.put(pathfile, files[i].getPath());
+										}
+									} else {
+										generateModelPaths(fromName, mutFiles[j], mutFiles[j].getName(),
+												hashmapModelFilenames, hashmapModelFolders, seedModelFilenames,
+												modelsURI, files[i]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		Set<String> modelFilenames = hashmapModelFilenames.keySet();
+		for (String modelFilename : modelFilenames) {
+			String seedModelFilename = seedModelFilenames.get(modelFilename);
+			Set<String> hashsetMutantsBlock = null;
+			hashsetMutantsBlock = new LinkedHashSet<String>();
+			if (hashsetMutantsBlock.contains(seedModelFilename) == false) {
+				hashsetMutantsBlock.add(seedModelFilename);
+			}
+			numMutants = -1;
+			String xmiFilename = MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation()
+					.getPath().replace("/bin/", "/") + "data/out/MutationTestingApp.model";
+			xmiFilename = "file:/" + xmiFilename.substring(1, xmiFilename.length());
+			String mutatorecore = MutatorenvironmentPackage.class.getProtectionDomain().getCodeSource().getLocation()
+					.getPath().replace("/bin/", "/") + "model/MutatorEnvironment.ecore";
+			mutatorecore = mutatorecore.substring(1, mutatorecore.length());
+			List<EPackage> mutatorpackages = ModelManager.loadMetaModel(mutatorecore);
+			Resource mutatormodel = ModelManager.loadModel(mutatorpackages, URI.createURI(xmiFilename).toFileString());
+			Map<String, EObject> hmMutator = getMutators(ModelManager.getObjects(mutatormodel));
+			Map<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>> hashmapEObject = new LinkedHashMap<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>();
+			Map<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>> hashmapList = new LinkedHashMap<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>>();
+			Resource model = ModelManager.loadModel(packages, URI.createURI("file:/" + modelFilename).toFileString());
+			Resource seed = ModelManager.loadModel(packages, URI.createURI("file:/" + modelFilename).toFileString());
+			List<String> mutPaths = new ArrayList<String>();
+			Mutations muts = AppliedMutationsFactory.eINSTANCE.createMutations();
+			mutation1(packages, model, hashmapEObject, hashmapList, hashmapModelFilenames, modelFilename, mutPaths,
+					hmMutator, seed, registeredPackages, localRegisteredPackages, hashmapModelFolders, ecoreURI,
+					registry, hashsetMutantsBlock, fromNames, hashmapMutVersions, muts, project, monitor, k, serialize,
+					test, classes);
+			numMutantsGenerated = k[0];
+			hashmapMutants.put(modelFilename, hashsetMutantsBlock);
+			try {
+				model.unload();
+				seed.unload();
+			} catch (Exception e) {
+			}
+			mutatedObjects = null;
+		}
+		return numMutantsGenerated;
+	}
+
+	private int mutation3(List<EPackage> packages, Resource model,
+			Map<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>> hmObjects,
+			Map<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>> hmList,
+			Map<String, String> hashmapModelFilenames, String modelFilename, List<String> mutPaths,
+			Map<String, EObject> hmMutator, Resource seed, Map<String, EPackage> registeredPackages,
+			Map<String, EPackage> localRegisteredPackages, Map<String, String> hashmapModelFolders, String ecoreURI,
+			boolean registry, Set<String> hashsetMutantsBlock, List<String> fromNames,
+			Map<String, List<String>> hashmapMutVersions, Mutations muts, IProject project, IProgressMonitor monitor,
+			int[] k, boolean serialize, IWodelTest test, Map<String, List<String>> classes)
+			throws ReferenceNonExistingException, MetaModelNotFoundException, ModelNotFoundException,
+			ObjectNotContainedException, ObjectNoTargetableException, AbstractCreationException,
+			WrongAttributeTypeException, IOException {
+		int numMutantsGenerated = 0;
+		RandomTypeSelection rts = new RandomTypeSelection(packages, model, "Position", mutatedObjects);
+		List<EObject> objects = rts.getObjects();
+		for (EObject object : objects) {
+			String modelsFolder = ModelManager.getModelsFolder(this.getClass());
+			String tempModelsFolder = modelsFolder.replace(modelsFolder.indexOf("/") > 0
+					? modelsFolder.substring(modelsFolder.indexOf("/") + 1, modelsFolder.length())
+					: modelsFolder, "temp");
+			modelsFolder = modelsFolder.replace("/", "\\");
+			tempModelsFolder = tempModelsFolder.replace("/", "\\");
+			Resource resource = ModelManager.cloneModel(model,
+					model.getURI().toFileString().replace(modelsFolder + "\\", tempModelsFolder + "\\")
+							.replace(".model", ".mutation3." + numMutantsGenerated + ".model"));
+			ObSelectionStrategy obSelection = null;
+			object = ModelManager.getObject(resource, object);
+			if (object != null) {
+				obSelection = new SpecificObjectSelection(packages, resource, object);
+				Map<String, List<AttributeConfigurationStrategy>> attsList = new LinkedHashMap<String, List<AttributeConfigurationStrategy>>();
+				if (obSelection != null) {
+					List<AttributeConfigurationStrategy> atts = null;
+					if (attsList.get("x") != null) {
+						atts = attsList.get("x");
+					} else {
+						atts = new ArrayList<AttributeConfigurationStrategy>();
+					}
+					AttributeConfigurationStrategy attConfig = null;
+					attConfig = new SpecificDoubleConfigurationStrategy(1.0);
+					atts.add(attConfig);
+					attsList.put("x", atts);
+					attConfig = new SpecificDoubleConfigurationStrategy(1.0);
+					atts.add(attConfig);
+					attsList.put("y", atts);
+				}
+				Map<String, List<ReferenceConfigurationStrategy>> refsList = new LinkedHashMap<String, List<ReferenceConfigurationStrategy>>();
+				Map<String, List<AttributeConfigurationStrategy>> attsRefList = new LinkedHashMap<String, List<AttributeConfigurationStrategy>>();
+				List<EObject> objsAttRef = new ArrayList<EObject>();
+				ModifyInformationMutator mut = new ModifyInformationMutator(obSelection.getModel(),
+						obSelection.getMetaModel(), obSelection, attsList, refsList, objsAttRef, attsRefList);
+				Mutator mutator = null;
+				if (muts == null) {
+					muts = AppliedMutationsFactory.eINSTANCE.createMutations();
+				}
+				if (mut != null) {
+					Object mutated = mut.mutate();
+					if (mutated != null) {
+						AppMutation appMut = registry3(mut, hmMutator, seed, obSelection.getModel(), mutPaths,
+								packages);
+						if (appMut != null) {
+							muts.getMuts().add(appMut);
+						}
+					}
+				}
+				mutator = mut;
+				if (mutator != null) {
+					Map<String, List<String>> rules = new LinkedHashMap<String, List<String>>();
+					String mutFilename = hashmapModelFilenames.get(modelFilename) + "/m2/Output" + k[0] + ".model";
+					boolean isRepeated = registryMutantWithBlocks(ecoreURI, packages, registeredPackages,
+							localRegisteredPackages, seed, mutator.getModel(), rules, muts, modelFilename, mutFilename,
+							registry, hashsetMutantsBlock, hashmapModelFilenames, hashmapModelFolders, "m2", fromNames,
+							k, mutPaths, hashmapMutVersions, project, serialize, test, classes, this.getClass(), true,
+							false);
+					if (isRepeated == false) {
+						numMutantsGenerated++;
+						monitor.worked(1);
+						k[0] = k[0] + 1;
+					}
+					if (muts != null) {
+						muts.getMuts().clear();
+					}
+				}
+			}
+		}
+		return numMutantsGenerated;
+	}
+
+	private AppMutation registry3(Mutator mut, Map<String, EObject> hmMutator, Resource seed, Resource mutant,
+			List<String> mutPaths, List<EPackage> packages) {
+		AppMutation appMut = null;
+		InformationChanged icMut = AppliedMutationsFactory.eINSTANCE.createInformationChanged();
+		ModifyInformationMutator mutator = (ModifyInformationMutator) mut;
+		icMut.setObject(mut.getObject());
+		EList<AttributeChanged> attsMut = icMut.getAttChanges();
+		Object oldAttVal = null;
+		Object newAttVal = null;
+		AttributeChanged attMut0 = null;
+		attMut0 = AppliedMutationsFactory.eINSTANCE.createAttributeChanged();
+		attMut0.setAttName("x");
+		oldAttVal = mutator.getOldAttValue("x");
+		newAttVal = mutator.getNewAttValue("x");
+		if (oldAttVal != null) {
+			attMut0.setOldVal(oldAttVal.toString());
+		}
+		if (newAttVal != null) {
+			attMut0.setNewVal(newAttVal.toString());
+		}
+		if (hmMutator.get("m3") != null) {
+			attMut0.setDef(hmMutator.get("m3"));
+			attsMut.add(attMut0);
+			icMut.setDef(hmMutator.get("m3"));
+		} else {
+			attMut0 = null;
+			icMut = null;
+		}
+		AttributeChanged attMut1 = null;
+		attMut1 = AppliedMutationsFactory.eINSTANCE.createAttributeChanged();
+		attMut1.setAttName("y");
+		oldAttVal = mutator.getOldAttValue("y");
+		newAttVal = mutator.getNewAttValue("y");
+		if (oldAttVal != null) {
+			attMut1.setOldVal(oldAttVal.toString());
+		}
+		if (newAttVal != null) {
+			attMut1.setNewVal(newAttVal.toString());
+		}
+		if (hmMutator.get("m3") != null) {
+			attMut1.setDef(hmMutator.get("m3"));
+			attsMut.add(attMut1);
+			icMut.setDef(hmMutator.get("m3"));
+		} else {
+			attMut1 = null;
+			icMut = null;
+		}
+		appMut = icMut;
+		return appMut;
+	}
+
+	public int block_m2(int maxAttempts, int numMutants, boolean registry, List<EPackage> packages,
+			Map<String, EPackage> registeredPackages, Map<String, EPackage> localRegisteredPackages,
+			List<String> fromNames, Map<String, Set<String>> hashmapMutants,
+			Map<String, List<String>> hashmapMutVersions, IProject project, IProgressMonitor monitor, int[] k,
+			boolean serialize, IWodelTest test, Map<String, List<String>> classes)
+			throws ReferenceNonExistingException, WrongAttributeTypeException, MaxSmallerThanMinException,
+			AbstractCreationException, ObjectNoTargetableException, ObjectNotContainedException,
+			MetaModelNotFoundException, ModelNotFoundException, IOException {
+		int numMutantsGenerated = 0;
+		if (maxAttempts <= 0) {
+			maxAttempts = 1;
+		}
+		String ecoreURI = "/MutationTestingApp/data/model/lib.ecore";
+		String modelURI = MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.replace("/bin/", "/") + "data/model/";
+		String modelsURI = MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.replace("/bin/", "/") + "data/out/";
+		Map<String, String> hashmapModelFilenames = new LinkedHashMap<String, String>();
+		Map<String, String> hashmapModelFolders = new LinkedHashMap<String, String>();
+		Map<String, String> seedModelFilenames = new LinkedHashMap<String, String>();
+		File[] files = new File(modelURI).listFiles();
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isFile() == true) {
+				if (files[i].getName().endsWith(".model") == true) {
+					if (fromNames.size() == 0) {
+						String pathfile = files[i].getPath();
+						if (pathfile.endsWith(".model") == true) {
+							hashmapModelFilenames.put(pathfile, modelsURI
+									+ files[i].getName().substring(0, files[i].getName().length() - ".model".length()));
+							seedModelFilenames.put(pathfile, files[i].getPath());
+						}
+					} else {
+						for (String fromName : fromNames) {
+							String modelFolder = modelsURI
+									+ files[i].getName().substring(0, files[i].getName().length() - ".model".length())
+									+ "/" + fromName + "/";
+							File[] mutFiles = new File(modelFolder).listFiles();
+							if (mutFiles != null) {
+								for (int j = 0; j < mutFiles.length; j++) {
+									if (mutFiles[j].isFile() == true) {
+										String pathfile = mutFiles[j].getPath();
+										if (pathfile.endsWith(".model") == true) {
+											hashmapModelFilenames.put(pathfile, modelsURI + files[i].getName()
+													.substring(0, files[i].getName().length() - ".model".length()));
+											hashmapModelFolders.put(pathfile, fromName + "/" + mutFiles[j].getName()
+													.substring(0, mutFiles[j].getName().length() - ".model".length()));
+											seedModelFilenames.put(pathfile, files[i].getPath());
+										}
+									} else {
+										generateModelPaths(fromName, mutFiles[j], mutFiles[j].getName(),
+												hashmapModelFilenames, hashmapModelFolders, seedModelFilenames,
+												modelsURI, files[i]);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		Set<String> modelFilenames = hashmapModelFilenames.keySet();
+		for (String modelFilename : modelFilenames) {
+			String seedModelFilename = seedModelFilenames.get(modelFilename);
+			Set<String> hashsetMutantsBlock = null;
+			hashsetMutantsBlock = new LinkedHashSet<String>();
+			if (hashsetMutantsBlock.contains(seedModelFilename) == false) {
+				hashsetMutantsBlock.add(seedModelFilename);
+			}
+			numMutants = -1;
+			String xmiFilename = MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation()
+					.getPath().replace("/bin/", "/") + "data/out/MutationTestingApp.model";
+			xmiFilename = "file:/" + xmiFilename.substring(1, xmiFilename.length());
+			String mutatorecore = MutatorenvironmentPackage.class.getProtectionDomain().getCodeSource().getLocation()
+					.getPath().replace("/bin/", "/") + "model/MutatorEnvironment.ecore";
+			mutatorecore = mutatorecore.substring(1, mutatorecore.length());
+			List<EPackage> mutatorpackages = ModelManager.loadMetaModel(mutatorecore);
+			Resource mutatormodel = ModelManager.loadModel(mutatorpackages, URI.createURI(xmiFilename).toFileString());
+			Map<String, EObject> hmMutator = getMutators(ModelManager.getObjects(mutatormodel));
+			Map<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>> hashmapEObject = new LinkedHashMap<String, SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>();
+			Map<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>> hashmapList = new LinkedHashMap<String, List<SimpleEntry<EObject, SimpleEntry<Resource, List<EPackage>>>>>();
+			Resource model = ModelManager.loadModel(packages, URI.createURI("file:/" + modelFilename).toFileString());
+			Resource seed = ModelManager.loadModel(packages, URI.createURI("file:/" + modelFilename).toFileString());
+			List<String> mutPaths = new ArrayList<String>();
+			Mutations muts = AppliedMutationsFactory.eINSTANCE.createMutations();
+			mutation3(packages, model, hashmapEObject, hashmapList, hashmapModelFilenames, modelFilename, mutPaths,
+					hmMutator, seed, registeredPackages, localRegisteredPackages, hashmapModelFolders, ecoreURI,
+					registry, hashsetMutantsBlock, fromNames, hashmapMutVersions, muts, project, monitor, k, serialize,
+					test, classes);
+			numMutantsGenerated = k[0];
+			hashmapMutants.put(modelFilename, hashsetMutantsBlock);
+			try {
+				model.unload();
+				seed.unload();
+			} catch (Exception e) {
+			}
+			mutatedObjects = null;
+		}
+		return numMutantsGenerated;
+	}
+
+	@Override
+	public MutationResults execute(int maxAttempts, int numMutants, boolean registry, boolean metrics,
+			boolean debugMetrics, List<EPackage> packages, Map<String, EPackage> registeredPackages,
+			Map<String, EPackage> localRegisteredPackages, String[] blockNames, IProject project,
+			IProgressMonitor monitor, boolean serialize, IWodelTest test, Map<String, List<String>> classes)
+			throws ReferenceNonExistingException, WrongAttributeTypeException, MaxSmallerThanMinException,
+			AbstractCreationException, ObjectNoTargetableException, ObjectNotContainedException,
+			MetaModelNotFoundException, ModelNotFoundException, IOException {
+		MutationResults mutationResults = new MutationResults();
+		if (maxAttempts <= 0) {
+			maxAttempts = 1;
+		}
+		int totalTasks = 2;
+		if (metrics == true) {
+			totalTasks++;
+		}
+		if (debugMetrics == true) {
+			totalTasks++;
+		}
+		monitor.beginTask("Generating mutants", totalTasks);
+		Map<String, Set<String>> hashmapMutants = new LinkedHashMap<String, Set<String>>();
+		Map<String, List<String>> hashmapMutVersions = new LinkedHashMap<String, List<String>>();
+		List<String> fromNames = null;
+		fromNames = new ArrayList<String>();
+		if (blockNames == null || (blockNames != null && Arrays.asList(blockNames).contains("m1") == true)) {
+			monitor.subTask("Generating mutants for block m1 (1/2)");
+			int[] k = new int[1];
+			k[0] = 0;
+			int numMutantsGenerated = block_m1(maxAttempts, numMutants, registry, packages, registeredPackages,
+					localRegisteredPackages, fromNames, hashmapMutants, hashmapMutVersions, project, monitor, k,
+					serialize, test, classes);
+			if (numMutantsGenerated > 0) {
+				mutationResults.numMutatorsApplied++;
+				if (mutationResults.mutatorsApplied == null) {
+					mutationResults.mutatorsApplied = new ArrayList<String>();
+				}
+				mutationResults.mutatorsApplied.add("m1");
+				mutationResults.numMutantsGenerated += numMutantsGenerated;
+			}
+			monitor.worked(1);
+		}
+		fromNames = new ArrayList<String>();
+		if (blockNames == null || (blockNames != null && Arrays.asList(blockNames).contains("m2") == true)) {
+			monitor.subTask("Generating mutants for block m2 (2/2)");
+			int[] k = new int[1];
+			k[0] = 0;
+			int numMutantsGenerated = block_m2(maxAttempts, numMutants, registry, packages, registeredPackages,
+					localRegisteredPackages, fromNames, hashmapMutants, hashmapMutVersions, project, monitor, k,
+					serialize, test, classes);
+			if (numMutantsGenerated > 0) {
+				mutationResults.numMutatorsApplied++;
+				if (mutationResults.mutatorsApplied == null) {
+					mutationResults.mutatorsApplied = new ArrayList<String>();
+				}
+				mutationResults.mutatorsApplied.add("m2");
+				mutationResults.numMutantsGenerated += numMutantsGenerated;
+			}
+			monitor.worked(1);
+		}
+		String metricsecore = MutatormetricsPackage.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.replace("/bin/", "/") + "model/MutatorMetrics.ecore";
+		metricsecore = metricsecore.substring(1, metricsecore.length());
+		MutatorMetricsGenerator metricsGenerator = null;
+		if (metrics == true) {
+			List<EPackage> metricspackages = ModelManager.loadMetaModel(metricsecore);
+			monitor.subTask("Generating dynamic net metrics");
+			metricsGenerator = new NetMutatorMetricsGenerator(metricspackages, MutationTestingAppDynamic.class
+					.getProtectionDomain().getCodeSource().getLocation().getPath().replace("/bin/", "/") + "data/out/",
+					"/MutationTestingApp/data/model/lib.ecore",
+					MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+							.replace("/bin/", "/") + "data/model/",
+					"MutationTestingApp.mutator", hashmapMutVersions, this.getClass());
+			metricsGenerator.run();
+			monitor.worked(1);
+		}
+		if (debugMetrics == true) {
+			List<EPackage> metricspackages = ModelManager.loadMetaModel(metricsecore);
+			monitor.subTask("Generating dynamic debug metrics");
+			metricsGenerator = new DebugMutatorMetricsGenerator(metricspackages, MutationTestingAppDynamic.class
+					.getProtectionDomain().getCodeSource().getLocation().getPath().replace("/bin/", "/") + "data/out/",
+					"/MutationTestingApp/data/model/lib.ecore",
+					MutationTestingAppDynamic.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+							.replace("/bin/", "/") + "data/model/",
+					"MutationTestingApp.mutator", hashmapMutVersions, this.getClass());
+			metricsGenerator.run();
+			monitor.worked(1);
+		}
+		return mutationResults;
+	}
+}

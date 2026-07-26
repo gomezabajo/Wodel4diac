@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System Name="MutationTestingApp">
+	<VersionInfo Version="1.0" Author="Bianca Wiesmayr" Date="2025-09-04">
+	</VersionInfo>
+	<Application Name="MutationTestingApp">
+		<SubAppNetwork>
+			<FB Name="E_PERMIT" Type="E_PERMIT" x="2300" y="-800">
+			</FB>
+			<FB Name="E_SR" Type="E_SR" x="1200" y="-800">
+			</FB>
+			<EventConnections>
+				<Connection Source="E_SR.EO" Destination="E_PERMIT.EI"/>
+			</EventConnections>
+			<DataConnections>
+				<Connection Source="E_SR.Q" Destination="E_PERMIT.PERMIT" dx1="313.33"/>
+			</DataConnections>
+		</SubAppNetwork>
+	</Application>
+</System>

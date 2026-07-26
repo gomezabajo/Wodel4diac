@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<appliedMutations:Mutations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appliedMutations="http://appliedMutations/1.0">
+  <muts>
+    <def href="../../../MutationTestingApp.model#//@blocks.0/@commands.0"/>
+  </muts>
+  <muts xsi:type="appliedMutations:InformationChanged">
+    <def href="../../../MutationTestingApp.model#//@blocks.0/@commands.1"/>
+    <object href="../../../../model/seed1.mutation2.0.model#//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0"/>
+    <attChanges attName="comment" oldVal="Set output Q" newVal="made by Pablo">
+      <def href="../../../MutationTestingApp.model#//@blocks.0/@commands.1"/>
+    </attChanges>
+  </muts>
+</appliedMutations:Mutations>

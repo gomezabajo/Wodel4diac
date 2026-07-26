@@ -1,0 +1,14 @@
+generate exhaustive mutants
+in "data/out/"
+from "data/model/"
+metamodel "/MutationTestingApp/data/model/lib.ecore"
+
+with blocks {
+	 m1 {
+	 	ev = select one Event
+	 	modify ev with {comment = "made by Pablo"}
+	 }
+	 m2 {
+	 	modify one Position with {x = 1.0, y = 1.0}
+	 }
+}

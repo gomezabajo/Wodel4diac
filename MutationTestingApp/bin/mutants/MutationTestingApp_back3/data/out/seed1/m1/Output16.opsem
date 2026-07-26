@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opsem:EventManager xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:data="org.eclipse.fordiac.ide.model.datatype" xmlns:libraryElement="org.eclipse.fordiac.ide.model.libraryElement" xmlns:opsem="http://OperationalSemantics/1.0">
+  <transactions xsi:type="opsem:FBTransaction">
+    <inputEventOccurrence xsi:type="opsem:EventOccurrence" active="false">
+      <event xsi:type="libraryElement:Event" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1/@interface/@eventInputs.0"/>
+      <fbRuntime xsi:type="opsem:FBNetworkRuntime">
+        <fbnetwork xsi:type="libraryElement:FBNetwork" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork"/>
+      </fbRuntime>
+      <parentFB xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+      <resultFBRuntime xsi:type="opsem:FBNetworkRuntime">
+        <fbnetwork xsi:type="libraryElement:FBNetwork" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork"/>
+        <transferData xsi:type="opsem:ConnectionToValueMap">
+          <key xsi:type="libraryElement:DataConnection" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@dataConnections.0"/>
+          <value xsi:type="libraryElement:Value" value="TRUE"/>
+        </transferData>
+        <typeRuntimes xsi:type="opsem:RuntimeMap">
+          <key xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+          <value xsi:type="opsem:BasicFBTypeRuntime" activeState="SET">
+            <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_SR" comment="Event-driven bistable">
+              <versionInfo xsi:type="libraryElement:VersionInfo" author="Alois Zoitl" date="2017-09-22" organization="fortiss GmbH" remarks="initial API and implementation and/or initial documentation" version="1.0"/>
+              <identification xsi:type="libraryElement:Identification" description="Copyright (c) 2017 fortiss GmbH&#xA; &#xA;This program and the accompanying materials are made&#xA;available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0" standard="61499-1 Annex A"/>
+              <interfaceList xsi:type="libraryElement:InterfaceList">
+                <eventInputs xsi:type="libraryElement:Event" name="S" comment="Set output Q" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventInputs>
+                <eventInputs xsi:type="libraryElement:Event" name="R" comment="Reset output Q" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventInputs>
+                <eventOutputs xsi:type="libraryElement:Event" name="EO" comment="Output Q has changed">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                  <with xsi:type="libraryElement:With" variables="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@outputVars.0"/>
+                </eventOutputs>
+                <outputVars xsi:type="libraryElement:VarDeclaration" name="Q" comment="value of flip flop" withs="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0/@with.0">
+                  <type xsi:type="data:BoolType" href="../../../../../../../../../MutationTestingApp/network_traces/data.lib#/12"/>
+                  <value xsi:type="libraryElement:Value" value="TRUE"/>
+                </outputVars>
+              </interfaceList>
+              <service xsi:type="libraryElement:Service"/>
+              <callables xsi:type="libraryElement:STAlgorithm" name="SET" comment="SET algorithm" text="Q := TRUE;"/>
+              <callables xsi:type="libraryElement:STAlgorithm" name="RESET" comment="RESET algorithm" text="Q := FALSE;"/>
+              <eCC xsi:type="libraryElement:ECC" start="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.0">
+                <eCState xsi:type="libraryElement:ECState" name="START" comment="Initial State" outTransitions="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.0">
+                  <position xsi:type="libraryElement:Position" x="500.0" y="385.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="SET" outTransitions="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.1" inTransitions="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.0 //@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.2">
+                  <position xsi:type="libraryElement:Position" x="1200.0" y="400.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@callables.0" output="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="RESET" outTransitions="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.2" inTransitions="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.1">
+                  <position xsi:type="libraryElement:Position" x="1165.0" y="845.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@callables.1" output="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.0" destination="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="995.0" y="455.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" destination="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2" conditionEvent="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.1">
+                  <position xsi:type="libraryElement:Position" x="1205.0" y="685.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2" destination="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="1460.0" y="675.0"/>
+                </eCTransition>
+              </eCC>
+            </basicfbtype>
+          </value>
+        </typeRuntimes>
+      </resultFBRuntime>
+    </inputEventOccurrence>
+    <outputEventOccurrences xsi:type="opsem:EventOccurrence" event="//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0" createdTransactions="//@transactions.1">
+      <fbRuntime xsi:type="opsem:BasicFBTypeRuntime" activeState="SET">
+        <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_SR" comment="Event-driven bistable">
+          <versionInfo xsi:type="libraryElement:VersionInfo" author="Alois Zoitl" date="2017-09-22" organization="fortiss GmbH" remarks="initial API and implementation and/or initial documentation" version="1.0"/>
+          <identification xsi:type="libraryElement:Identification" description="Copyright (c) 2017 fortiss GmbH&#xA; &#xA;This program and the accompanying materials are made&#xA;available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0" standard="61499-1 Annex A"/>
+          <interfaceList xsi:type="libraryElement:InterfaceList">
+            <eventInputs xsi:type="libraryElement:Event" name="S" comment="Set output Q" isInput="true">
+              <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+            </eventInputs>
+            <eventInputs xsi:type="libraryElement:Event" name="R" comment="Reset output Q" isInput="true">
+              <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+            </eventInputs>
+            <eventOutputs xsi:type="libraryElement:Event" name="EO" comment="Output Q has changed">
+              <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+              <with xsi:type="libraryElement:With" variables="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@outputVars.0"/>
+            </eventOutputs>
+            <outputVars xsi:type="libraryElement:VarDeclaration" name="Q" comment="value of flip flop" withs="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventOutputs.0/@with.0">
+              <type xsi:type="data:BoolType" href="../../../../../../../../../MutationTestingApp/network_traces/data.lib#/12"/>
+              <value xsi:type="libraryElement:Value" value="TRUE"/>
+            </outputVars>
+          </interfaceList>
+          <service xsi:type="libraryElement:Service"/>
+          <callables xsi:type="libraryElement:STAlgorithm" name="SET" comment="SET algorithm" text="Q := TRUE;"/>
+          <callables xsi:type="libraryElement:STAlgorithm" name="RESET" comment="RESET algorithm" text="Q := FALSE;"/>
+          <eCC xsi:type="libraryElement:ECC" start="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.0">
+            <eCState xsi:type="libraryElement:ECState" name="START" comment="Initial State" outTransitions="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.0">
+              <position xsi:type="libraryElement:Position" x="500.0" y="385.0"/>
+            </eCState>
+            <eCState xsi:type="libraryElement:ECState" name="SET" outTransitions="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.1" inTransitions="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.0 //@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.2">
+              <position xsi:type="libraryElement:Position" x="1200.0" y="400.0"/>
+              <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@callables.0" output="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+            </eCState>
+            <eCState xsi:type="libraryElement:ECState" name="RESET" outTransitions="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.2" inTransitions="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.1">
+              <position xsi:type="libraryElement:Position" x="1165.0" y="845.0"/>
+              <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@callables.1" output="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+            </eCState>
+            <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.0" destination="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventInputs.0">
+              <position xsi:type="libraryElement:Position" x="995.0" y="455.0"/>
+            </eCTransition>
+            <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.1" destination="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.2" conditionEvent="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventInputs.1">
+              <position xsi:type="libraryElement:Position" x="1205.0" y="685.0"/>
+            </eCTransition>
+            <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.2" destination="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.0/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventInputs.0">
+              <position xsi:type="libraryElement:Position" x="1460.0" y="675.0"/>
+            </eCTransition>
+          </eCC>
+        </basicfbtype>
+      </fbRuntime>
+      <parentFB xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+    </outputEventOccurrences>
+  </transactions>
+  <transactions xsi:type="opsem:FBTransaction" parentEO="//@transactions.0/@outputEventOccurrences.0">
+    <inputEventOccurrence xsi:type="opsem:EventOccurrence" active="false">
+      <event xsi:type="libraryElement:Event" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.0/@interface/@eventInputs.0"/>
+      <fbRuntime xsi:type="opsem:FBNetworkRuntime">
+        <fbnetwork xsi:type="libraryElement:FBNetwork" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork"/>
+        <transferData xsi:type="opsem:ConnectionToValueMap">
+          <key xsi:type="libraryElement:DataConnection" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@dataConnections.0"/>
+          <value xsi:type="libraryElement:Value" value="TRUE"/>
+        </transferData>
+        <typeRuntimes xsi:type="opsem:RuntimeMap">
+          <key xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+          <value xsi:type="opsem:BasicFBTypeRuntime" activeState="SET">
+            <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_SR" comment="Event-driven bistable">
+              <versionInfo xsi:type="libraryElement:VersionInfo" author="Alois Zoitl" date="2017-09-22" organization="fortiss GmbH" remarks="initial API and implementation and/or initial documentation" version="1.0"/>
+              <identification xsi:type="libraryElement:Identification" description="Copyright (c) 2017 fortiss GmbH&#xA; &#xA;This program and the accompanying materials are made&#xA;available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0" standard="61499-1 Annex A"/>
+              <interfaceList xsi:type="libraryElement:InterfaceList">
+                <eventInputs xsi:type="libraryElement:Event" name="S" comment="Set output Q" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventInputs>
+                <eventInputs xsi:type="libraryElement:Event" name="R" comment="Reset output Q" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventInputs>
+                <eventOutputs xsi:type="libraryElement:Event" name="EO" comment="Output Q has changed">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                  <with xsi:type="libraryElement:With" variables="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@outputVars.0"/>
+                </eventOutputs>
+                <outputVars xsi:type="libraryElement:VarDeclaration" name="Q" comment="value of flip flop" withs="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0/@with.0">
+                  <type xsi:type="data:BoolType" href="../../../../../../../../../MutationTestingApp/network_traces/data.lib#/12"/>
+                  <value xsi:type="libraryElement:Value" value="TRUE"/>
+                </outputVars>
+              </interfaceList>
+              <service xsi:type="libraryElement:Service"/>
+              <callables xsi:type="libraryElement:STAlgorithm" name="SET" comment="SET algorithm" text="Q := TRUE;"/>
+              <callables xsi:type="libraryElement:STAlgorithm" name="RESET" comment="RESET algorithm" text="Q := FALSE;"/>
+              <eCC xsi:type="libraryElement:ECC" start="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.0">
+                <eCState xsi:type="libraryElement:ECState" name="START" comment="Initial State" outTransitions="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.0">
+                  <position xsi:type="libraryElement:Position" x="500.0" y="385.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="SET" outTransitions="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.1" inTransitions="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.0 //@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.2">
+                  <position xsi:type="libraryElement:Position" x="1200.0" y="400.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@callables.0" output="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="RESET" outTransitions="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.2" inTransitions="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.1">
+                  <position xsi:type="libraryElement:Position" x="1165.0" y="845.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@callables.1" output="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.0" destination="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="995.0" y="455.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" destination="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2" conditionEvent="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.1">
+                  <position xsi:type="libraryElement:Position" x="1205.0" y="685.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2" destination="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.1/@inputEventOccurrence/@fbRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="1460.0" y="675.0"/>
+                </eCTransition>
+              </eCC>
+            </basicfbtype>
+          </value>
+        </typeRuntimes>
+      </fbRuntime>
+      <parentFB xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.0"/>
+      <resultFBRuntime xsi:type="opsem:FBNetworkRuntime">
+        <fbnetwork xsi:type="libraryElement:FBNetwork" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork"/>
+        <transferData xsi:type="opsem:ConnectionToValueMap">
+          <key xsi:type="libraryElement:DataConnection" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@dataConnections.0"/>
+          <value xsi:type="libraryElement:Value" value="TRUE"/>
+        </transferData>
+        <typeRuntimes xsi:type="opsem:RuntimeMap">
+          <key xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.1"/>
+          <value xsi:type="opsem:BasicFBTypeRuntime" activeState="SET">
+            <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_SR" comment="Event-driven bistable">
+              <versionInfo xsi:type="libraryElement:VersionInfo" author="Alois Zoitl" date="2017-09-22" organization="fortiss GmbH" remarks="initial API and implementation and/or initial documentation" version="1.0"/>
+              <identification xsi:type="libraryElement:Identification" description="Copyright (c) 2017 fortiss GmbH&#xA; &#xA;This program and the accompanying materials are made&#xA;available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0" standard="61499-1 Annex A"/>
+              <interfaceList xsi:type="libraryElement:InterfaceList">
+                <eventInputs xsi:type="libraryElement:Event" name="S" comment="Set output Q" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventInputs>
+                <eventInputs xsi:type="libraryElement:Event" name="R" comment="Reset output Q" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventInputs>
+                <eventOutputs xsi:type="libraryElement:Event" name="EO" comment="Output Q has changed">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                  <with xsi:type="libraryElement:With" variables="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@outputVars.0"/>
+                </eventOutputs>
+                <outputVars xsi:type="libraryElement:VarDeclaration" name="Q" comment="value of flip flop" withs="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0/@with.0">
+                  <type xsi:type="data:BoolType" href="../../../../../../../../../MutationTestingApp/network_traces/data.lib#/12"/>
+                  <value xsi:type="libraryElement:Value" value="TRUE"/>
+                </outputVars>
+              </interfaceList>
+              <service xsi:type="libraryElement:Service"/>
+              <callables xsi:type="libraryElement:STAlgorithm" name="SET" comment="SET algorithm" text="Q := TRUE;"/>
+              <callables xsi:type="libraryElement:STAlgorithm" name="RESET" comment="RESET algorithm" text="Q := FALSE;"/>
+              <eCC xsi:type="libraryElement:ECC" start="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.0">
+                <eCState xsi:type="libraryElement:ECState" name="START" comment="Initial State" outTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.0">
+                  <position xsi:type="libraryElement:Position" x="500.0" y="385.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="SET" outTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.1" inTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.0 //@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.2">
+                  <position xsi:type="libraryElement:Position" x="1200.0" y="400.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@callables.0" output="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="RESET" outTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.2" inTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCTransition.1">
+                  <position xsi:type="libraryElement:Position" x="1165.0" y="845.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" algorithm="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@callables.1" output="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.0" destination="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="995.0" y="455.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" destination="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2" conditionEvent="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.1">
+                  <position xsi:type="libraryElement:Position" x="1205.0" y="685.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="" source="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2" destination="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="1460.0" y="675.0"/>
+                </eCTransition>
+              </eCC>
+            </basicfbtype>
+          </value>
+        </typeRuntimes>
+        <typeRuntimes xsi:type="opsem:RuntimeMap">
+          <key xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.0"/>
+          <value xsi:type="opsem:BasicFBTypeRuntime" activeState="START">
+            <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_PERMIT" comment="permissive propagation of an event">
+              <versionInfo xsi:type="libraryElement:VersionInfo" author="Alois Zoitl" date="2017-09-20" organization="fortiss GmbH" remarks="initial API and implementation and/or initial documentation" version="1.0"/>
+              <identification xsi:type="libraryElement:Identification" description="Copyright (c) 2017 fortiss GmbH&#xD;&#xA; &#xD;&#xA;This program and the accompanying materials are made&#xD;&#xA;available under the terms of the Eclipse Public License 2.0&#xD;&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xD;&#xA;&#xD;&#xA;SPDX-License-Identifier: EPL-2.0" standard="61499-1 Annex A"/>
+              <interfaceList xsi:type="libraryElement:InterfaceList">
+                <eventInputs xsi:type="libraryElement:Event" name="EI" comment=" Event input" isInput="true">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                  <with xsi:type="libraryElement:With" variables="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@interfaceList/@inputVars.0"/>
+                </eventInputs>
+                <eventOutputs xsi:type="libraryElement:Event" name="EO" comment="made by Pablo">
+                  <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+                </eventOutputs>
+                <inputVars xsi:type="libraryElement:VarDeclaration" name="PERMIT" isInput="true" withs="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@interfaceList/@eventInputs.0/@with.0">
+                  <type xsi:type="data:BoolType" href="../../../../../../../../../MutationTestingApp/network_traces/data.lib#/12"/>
+                  <value xsi:type="libraryElement:Value" value="TRUE"/>
+                </inputVars>
+              </interfaceList>
+              <service xsi:type="libraryElement:Service"/>
+              <eCC xsi:type="libraryElement:ECC" start="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCState.0">
+                <eCState xsi:type="libraryElement:ECState" name="START" comment="Initial State" outTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCTransition.0" inTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCTransition.1">
+                  <position xsi:type="libraryElement:Position" x="550.0" y="500.0"/>
+                </eCState>
+                <eCState xsi:type="libraryElement:ECState" name="EO" comment="Event propagration permited" outTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCTransition.1" inTransitions="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCTransition.0">
+                  <position xsi:type="libraryElement:Position" x="1500.0" y="500.0"/>
+                  <eCAction xsi:type="libraryElement:ECAction" output="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+                </eCState>
+                <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="PERMIT" source="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCState.0" destination="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@interfaceList/@eventInputs.0">
+                  <position xsi:type="libraryElement:Position" x="1100.0" y="515.0"/>
+                </eCTransition>
+                <eCTransition xsi:type="libraryElement:ECTransition" source="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCState.1" destination="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@eCC/@eCState.0">
+                  <position xsi:type="libraryElement:Position" x="1200.0" y="885.0"/>
+                </eCTransition>
+              </eCC>
+            </basicfbtype>
+          </value>
+        </typeRuntimes>
+      </resultFBRuntime>
+    </inputEventOccurrence>
+    <outputEventOccurrences xsi:type="opsem:EventOccurrence" event="//@transactions.1/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.1/@value/@basicfbtype/@interfaceList/@eventOutputs.0">
+      <fbRuntime xsi:type="opsem:BasicFBTypeRuntime" activeState="EO">
+        <basicfbtype xsi:type="libraryElement:BasicFBType" name="E_PERMIT" comment="permissive propagation of an event">
+          <versionInfo xsi:type="libraryElement:VersionInfo" author="Alois Zoitl" date="2017-09-20" organization="fortiss GmbH" remarks="initial API and implementation and/or initial documentation" version="1.0"/>
+          <identification xsi:type="libraryElement:Identification" description="Copyright (c) 2017 fortiss GmbH&#xD;&#xA; &#xD;&#xA;This program and the accompanying materials are made&#xD;&#xA;available under the terms of the Eclipse Public License 2.0&#xD;&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xD;&#xA;&#xD;&#xA;SPDX-License-Identifier: EPL-2.0" standard="61499-1 Annex A"/>
+          <interfaceList xsi:type="libraryElement:InterfaceList">
+            <eventInputs xsi:type="libraryElement:Event" name="EI" comment=" Event input" isInput="true">
+              <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+              <with xsi:type="libraryElement:With" variables="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@inputVars.0"/>
+            </eventInputs>
+            <eventOutputs xsi:type="libraryElement:Event" name="EO" comment="Event output">
+              <type xsi:type="data:EventType" href="../../../../../../../../../MutationTestingApp/network_traces/Event.eventlib.dtp#/"/>
+            </eventOutputs>
+            <inputVars xsi:type="libraryElement:VarDeclaration" name="PERMIT" isInput="true" withs="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventInputs.0/@with.0">
+              <type xsi:type="data:BoolType" href="../../../../../../../../../MutationTestingApp/network_traces/data.lib#/12"/>
+              <value xsi:type="libraryElement:Value" value="TRUE"/>
+            </inputVars>
+          </interfaceList>
+          <service xsi:type="libraryElement:Service"/>
+          <eCC xsi:type="libraryElement:ECC" start="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.0">
+            <eCState xsi:type="libraryElement:ECState" name="START" comment="Initial State" outTransitions="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.0" inTransitions="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.1">
+              <position xsi:type="libraryElement:Position" x="550.0" y="500.0"/>
+            </eCState>
+            <eCState xsi:type="libraryElement:ECState" name="EO" comment="Event propagration permited" outTransitions="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.1" inTransitions="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCTransition.0">
+              <position xsi:type="libraryElement:Position" x="1500.0" y="500.0"/>
+              <eCAction xsi:type="libraryElement:ECAction" output="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventOutputs.0"/>
+            </eCState>
+            <eCTransition xsi:type="libraryElement:ECTransition" conditionExpression="PERMIT" source="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.0" destination="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.1" conditionEvent="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@interfaceList/@eventInputs.0">
+              <position xsi:type="libraryElement:Position" x="1100.0" y="515.0"/>
+            </eCTransition>
+            <eCTransition xsi:type="libraryElement:ECTransition" source="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.1" destination="//@transactions.1/@outputEventOccurrences.0/@fbRuntime/@basicfbtype/@eCC/@eCState.0">
+              <position xsi:type="libraryElement:Position" x="1200.0" y="885.0"/>
+            </eCTransition>
+          </eCC>
+        </basicfbtype>
+      </fbRuntime>
+      <parentFB xsi:type="libraryElement:FB" href="../../../../../../../../../MutationTestingApp/MutationTesting.sys#//@application.0/@fBNetwork/@networkElements.0"/>
+    </outputEventOccurrences>
+  </transactions>
+</opsem:EventManager>

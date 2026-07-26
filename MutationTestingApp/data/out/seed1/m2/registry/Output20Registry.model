@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<appliedMutations:Mutations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appliedMutations="http://appliedMutations/1.0">
+  <muts xsi:type="appliedMutations:InformationChanged">
+    <def href="../../../MutationTestingApp.model#//@blocks.1/@commands.0"/>
+    <object href="../../../../model/seed1.mutation3.14.model#//@transactions.0/@inputEventOccurrence/@resultFBRuntime/@typeRuntimes.0/@value/@basicfbtype/@eCC/@eCState.2/@position"/>
+    <attChanges attName="x" oldVal="1.0" newVal="1.0">
+      <def href="../../../MutationTestingApp.model#//@blocks.1/@commands.0"/>
+    </attChanges>
+    <attChanges attName="y" oldVal="1.0" newVal="1.0">
+      <def href="../../../MutationTestingApp.model#//@blocks.1/@commands.0"/>
+    </attChanges>
+  </muts>
+</appliedMutations:Mutations>
