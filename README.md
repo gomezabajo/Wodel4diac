@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/gomezabajo/Wodel4diac">
-    <img src="https://gomezabajo.github.io/Wodel/images/wodel4diac.png" width="224" height="120" alt="Wodel4diac logo" />
+    <img src="https://gomezabajo.github.io/Wodel4diac/images/wodel4diac_w_red.png" width="210" height="120" alt="Wodel4diac logo" />
   </a>
 </p>
 
