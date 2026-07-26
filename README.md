@@ -84,8 +84,8 @@ On top of the standard Wodel ecosystem, this repository contributes:
 
 1. In Eclipse (with the 4diac IDE features installed), open **Help -> Install New Software...**
 2. Add the update site built from this repository
-   ([`wodel.updatesite`](https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.updatesite)):
-   - https://raw.githubusercontent.com/gomezabajo/Wodel4diac/main/wodel.updatesite
+   ([`wodel.updatesite`](https://gomezabajo.github.io/Wodel4diac/update-site/)):
+   - https://gomezabajo.github.io/Wodel4diac/update-site/
 3. Select the **Wodel4diac** features and complete the wizard.
 4. Restart Eclipse.
 
