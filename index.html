@@ -1,195 +1,235 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Wodel4diac: Model Mutation for Eclipse 4diac and IEC 61499</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Wodel4diac extends the Wodel model mutation DSL to mutate IEC 61499 industrial automation applications authored in Eclipse 4diac.">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/card.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/side-menu.css" media="screen">
-	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name"><a href="https://gomezabajo.github.io/Wodel4diac" style="color: #FFFFEE;"><img src="images/wodel4diac.png" width="210" height="120" alt="Wodel4diac logo"/><br />Wodel4diac</a></h1>
-      <h2 class="project-tagline">A domain-specific language for model mutation &mdash; compatible with Eclipse 4diac</h2>
-      <a href="https://github.com/gomezabajo/Wodel4diac" class="btn">View on GitHub</a>
-	  <a href="https://gomezabajo.github.io/Wodel4diac/update-site/" class="btn">Update Site</a>
-	  <a href="https://www.dropbox.com/scl/fi/szl0ping81sadiurh4wr5/4diac-ide.zip?rlkey=c8c4eurlt97kr3csoww4s874z&dl=1" class="btn">Standalone Eclipse with Wodel4diac - Win</a>
-	  <a href="https://www.dropbox.com/scl/fi/4xdhl8vecxr817hyefvbj/4diac-ide.zip?rlkey=4aasbwlwvuph828tegm65x7mp&dl=1" class="btn">Standalone Eclipse with Wodel4diac - Ubuntu</a>
-	  <a href="https://gomezabajo.github.io/Wodel/" class="btn">Wodel</a>
-	  <a href="https://eclipse.dev/4diac/" class="btn">Eclipse 4diac</a>
-      <a href="https://github.com/gomezabajo/Wodel4diac/zipball/main" class="btn">Download ZIP</a>
-      <a href="https://github.com/gomezabajo/Wodel4diac/tarball/main" class="btn">Download TAR.GZ</a>
-	  <a href="https://github.com/gomezabajo/Wodel4diac/issues" class="btn">Report a bug</a>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wodel4diac extends the Wodel model mutation DSL to IEC 61499 applications in Eclipse 4diac IDE. Updated for the Eclipse 4diac 3.3.0 target (October 2026).">
+  <meta name="theme-color" content="#5b1f6e">
+  <link rel="canonical" href="https://gomezabajo.github.io/Wodel4diac/">
+  <title>Wodel4diac — Model Mutation for Eclipse 4diac 3.3.0 and IEC 61499</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="stylesheets/normalize.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
+  <link rel="stylesheet" href="stylesheets/stylesheet.css">
+  <link rel="stylesheet" href="stylesheets/card.css">
+  <link rel="stylesheet" href="stylesheets/github-light.css">
+  <link rel="stylesheet" href="stylesheets/side-menu.css">
+  <link rel="stylesheet" href="stylesheets/wodel4diac-release.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="page-header">
+    <h1 class="project-name"><a href="https://gomezabajo.github.io/Wodel4diac/" class="brand-link"><img src="images/wodel4diac.png" width="210" height="120" alt="Wodel4diac logo">Wodel4diac</a></h1>
+    <p class="release-eyebrow">October 2026 integration update <span aria-hidden="true">&bull;</span> Target: Eclipse 4diac IDE 3.3.0</p>
+    <h2 class="project-tagline">Model mutation for IEC 61499 function-block applications, built on Wodel and Eclipse EMF</h2>
+    <nav class="hero-actions" aria-label="Primary links">
+      <a class="btn" href="https://github.com/gomezabajo/Wodel4diac">View on GitHub</a>
+      <a class="btn" href="https://gomezabajo.github.io/Wodel4diac/update-site/">Update site</a>
+      <a class="btn" href="#installation">Installation</a>
+      <a class="btn" href="#getting-started">Getting started</a>
+      <a class="btn" href="#release-overview">Release overview</a>
+      <a class="btn" href="https://gomezabajo.github.io/Wodel/">Wodel</a>
+      <a class="btn" href="https://eclipse.dev/4diac/">Eclipse 4diac</a>
+      <a class="btn" href="https://github.com/gomezabajo/Wodel4diac/issues">Report a bug</a>
+    </nav>
+  </header>
+
+  <main class="main-content" id="main-content">
+    <section class="intro-section" aria-labelledby="overview-title">
+      <p class="eyebrow">Wodel for industrial automation</p>
+      <h2 id="overview-title">Explore IEC 61499 models through controlled mutation</h2>
+      <p><strong>Wodel4diac</strong> extends <a href="https://gomezabajo.github.io/Wodel/">Wodel</a>, a model mutation domain-specific language (DSL), to model-based engineering workflows in <a href="https://eclipse.dev/4diac/">Eclipse 4diac</a>. Researchers can describe changes to models and produce variants of IEC 61499 function-block applications for mutation-based experimentation, testing research, and fault-injection studies.</p>
+      <p>It is an <strong>Eclipse/EMF research prototype</strong>. Generated variants must be inspected and validated for the intended 4diac application; mutation alone does not guarantee IEC 61499 conformance, behavioral correctness, runtime safety, or deployability.</p>
+      <div class="release-facts" aria-label="Current release facts">
+        <div><span class="fact-label">Target IDE</span><strong>Eclipse 4diac 3.3.0</strong></div>
+        <div><span class="fact-label">Java</span><strong>JDK 21</strong></div>
+        <div><span class="fact-label">Platform</span><strong>Eclipse · EMF · Xtext</strong></div>
+      </div>
     </section>
 
-        <section class="main-content">
-<h3 id="wodel4diac">Wodel4diac: model mutation for IEC 61499 industrial automation</h3>
+    <section id="release-overview" aria-labelledby="release-title">
+      <p class="eyebrow">Latest integration snapshot</p>
+      <h2 id="release-title">October 2026 — Eclipse 4diac 3.3.0 target</h2>
+      <p>This release updates the Wodel4diac integration target from <strong>Eclipse 4diac 3.2.0</strong> to <strong>3.3.0</strong> and refreshes the accompanying Wodel source and documentation. It brings the 4diac integration into the current Wodel research ecosystem, while retaining the distinction between stable Wodel core capabilities and experimental components.</p>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>4diac integration</h3>
+          <p>Mutation workflows over supported 4diac-related EMF models, with adaptation and post-processing components for IEC 61499 applications.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Wodel mutation infrastructure</h3>
+          <p>The Wodel DSL, mutation engine, registries, metrics, validation, comparison, and extension points included in the repository.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Experimental AI assistant</h3>
+          <p>The <code>wodel.ai.assistant</code> bundle contains LLM-backed assistance and tasks for Wodel-oriented workflows. Review generated content before use.</p>
+        </article>
+      </div>
+      <p class="note">The supplied source snapshot includes these components, but it does not establish which individual implementation changes were introduced after July 2026. Eclipse 4diac 3.3.0 is the <em>target platform</em>, not the OSGi version of every Wodel feature.</p>
+      <p>For new capabilities in the underlying IDE and FORTE runtime, see the <a href="https://eclipse.dev/4diac/news/2026/2026/eclipse-4diac-3.3-released/">official Eclipse 4diac 3.3 release announcement</a>. Those upstream 4diac features are not being claimed as Wodel4diac implementations.</p>
+    </section>
 
-      <p><strong>Wodel4diac</strong> extends <strong><a href="https://gomezabajo.github.io/Wodel/">Wodel</a></strong> &mdash; a domain-independent, language-independent tool for model mutation &mdash; so that it can mutate <strong>IEC 61499</strong> models authored in <strong><a href="https://eclipse.dev/4diac/">Eclipse 4diac</a></strong>.</p>
+    <section id="workflow" aria-labelledby="workflow-title">
+      <h2 id="workflow-title">How Wodel4diac fits into your workflow</h2>
+      <div class="workflow-steps">
+        <div class="workflow-step"><span class="step-number">01</span><strong>Prepare models</strong><p>Select an IEC 61499-related model and the compatible metamodel, using the supported Eclipse workspace integration.</p></div>
+        <div class="workflow-step"><span class="step-number">02</span><strong>Specify mutation</strong><p>Write a Wodel <code>.mutator</code> program describing metamodel-specific changes and generation settings.</p></div>
+        <div class="workflow-step"><span class="step-number">03</span><strong>Generate variants</strong><p>Execute the Wodel mutation engine and retain mutation traces, registry information, and model results.</p></div>
+        <div class="workflow-step"><span class="step-number">04</span><strong>Convert and validate</strong><p>Use the 4diac post-processor where applicable, then inspect and validate the resulting resources in 4diac.</p></div>
+      </div>
+      <p>The implementation includes conversion paths for operational-semantics <code>.opsem</code> resources. Some current workspace-oriented utilities reference a project named <code>MutationTestingApp</code> and its <code>network_traces</code> and <code>mutants</code> directories; adapt those assumptions before using a different project layout.</p>
+    </section>
 
-<p style="text-align: justify; text-justify: inter-word;">This makes it possible to systematically generate variants of function-block applications for purposes such as <strong>mutation testing</strong>, <strong>fault seeding</strong>, <strong>robustness analysis</strong>, and the <strong>automated generation of learning exercises</strong> for industrial-automation engineering.</p>
+    <section id="requirements" aria-labelledby="requirements-title">
+      <h2 id="requirements-title">Requirements and compatibility</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Component</th><th>Requirement / note</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Target IDE</strong></td><td>Eclipse 4diac IDE <strong>3.3.0</strong> with the relevant 4diac features installed.</td></tr>
+            <tr><td><strong>Java</strong></td><td>JDK <strong>21</strong> for the supplied Wodel4diac project configuration.</td></tr>
+            <tr><td><strong>Modeling stack</strong></td><td>Eclipse Plug-in Development Environment (PDE), EMF, Xtext, and required plug-in dependencies.</td></tr>
+            <tr><td><strong>Optional tools</strong></td><td>Some semantic checking/model-finding workflows use additional tools, such as eFinder and a constraint backend.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Compatibility is described for the supplied integration source. The 4diac 3.3.0 target does not imply that every optional bundle, solver, or AI task has been exhaustively tested on every operating system.</p>
+    </section>
 
-<h3 id="background">Background</h3>
+    <section id="installation" aria-labelledby="installation-title">
+      <h2 id="installation-title">Installation</h2>
+      <div class="install-panel">
+        <h3>Option A — Install from an Eclipse p2 update site</h3>
+        <ol>
+          <li>Open an Eclipse 4diac 3.3.0 environment containing the required modeling features.</li>
+          <li>Choose <strong>Help → Install New Software…</strong> and add the repository URL below.</li>
+          <li>Select the available Wodel4diac features, complete dependency resolution, and restart Eclipse.</li>
+          <li>Confirm installed bundles in <strong>Help → About Eclipse IDE → Installation Details</strong>.</li>
+        </ol>
+        <pre><code>https://gomezabajo.github.io/Wodel4diac/update-site/</code></pre>
+        <p class="note"><strong>Publication requirement:</strong> the update-site URL works as an Eclipse installer only when the published folder contains exported p2 repository metadata and the relevant feature/plug-in JARs. The GitHub Pages source archive alone does not include those artifacts. Check the published repository before advertising the new version as downloadable.</p>
+      </div>
+      <div class="install-panel">
+        <h3>Option B — Build from source</h3>
+        <pre><code>git clone https://github.com/gomezabajo/Wodel4diac.git
+cd Wodel4diac</code></pre>
+        <ol>
+          <li>Configure Eclipse 4diac IDE 3.3.0 with JDK 21 and the necessary PDE/EMF/Xtext dependencies.</li>
+          <li>Use <strong>File → Import → Existing Projects into Workspace</strong> to import the required plug-in and feature projects.</li>
+          <li>Resolve the target platform and launch a runtime Eclipse application with the necessary bundles.</li>
+          <li>Export the relevant PDE features and update site before distributing installable packages.</li>
+        </ol>
+      </div>
+      <p>Previously advertised standalone Windows and Ubuntu archives have not been verified for the 3.3.0 target and are therefore not linked as current installers. Use the official <a href="https://eclipse.dev/4diac/">4diac distribution</a> with a verified Wodel4diac update site or build from source.</p>
+    </section>
 
-<p style="text-align: justify; text-justify: inter-word;"><strong>Wodel</strong> is a tool for mutating models conforming to arbitrary meta-models. A <em>Wodel program</em> specifies, in a high-level and metamodel-agnostic syntax, a set of mutation operators (create, remove, modify, retype, clone, select, &hellip;) to apply to a seed model. Wodel generates syntactically and (optionally) semantically valid mutants, computes metrics, and post-processes the results. It is built on the Eclipse Modeling Framework (EMF) and Xtext.</p>
-
-<p style="text-align: justify; text-justify: inter-word;"><strong>Eclipse 4diac</strong> is an open-source framework for distributed industrial automation and control based on the <strong>IEC 61499</strong> standard. It comprises the <em>4diac IDE</em> engineering environment and the <em>FORTE</em> runtime, and models control logic as networks of function blocks.</p>
-
-<p style="text-align: justify; text-justify: inter-word;">Wodel4diac bridges the two: it lets you express mutation operators over 4diac / IEC 61499 models and obtain a population of mutated function-block applications.</p>
-
-<h3 id="what-wodel4diac-adds">What Wodel4diac adds</h3>
-
-<p>On top of the standard Wodel ecosystem, Wodel4diac contributes:</p>
-
-<ul>
-  <li><strong><code>wodel.fordiac</code></strong> &mdash; integration enabling Wodel to load, understand, and mutate 4diac / IEC 61499 models.</li>
-  <li><strong><code>wodel.postprocessor.fordiac</code></strong> &mdash; a post-processor that serialises generated mutants back into the 4diac project format so they can be opened in the 4diac IDE.</li>
-  <li><strong><code>wodel.ai.assistant</code></strong> &mdash; an experimental generative-AI assistant (see <a href="#ai-assistant">below</a>).</li>
-</ul>
-
-<h3 id="requirements">Requirements</h3>
-
-<ul>
-  <li><strong>Java 21</strong></li>
-  <li><strong>Eclipse 4diac IDE 3.2.0</strong> &mdash; the target platform whose models are mutated</li>
-  <li><strong>Xtext 2.37</strong> and <strong>EMF</strong> &mdash; installed automatically as plugin dependencies via the update sites</li>
-  <li>Optional, for semantic validation / model finding: a constraint backend used by <strong>eFinder</strong> (e.g. USE)</li>
-</ul>
-
-<h3 id="installation">Installation</h3>
-
-<h4>Option A &mdash; Install into Eclipse via the update site (recommended)</h4>
-
-<ol>
-  <li>In Eclipse (with the 4diac IDE features installed), open <em>Help &rarr; Install New Software&hellip;</em></li>
-  <li>Add the update site built from this repository (<a href="https://gomezabajo.github.io/Wodel4diac/update-site/"><code>wodel.updatesite</code></a>):<br /><code>https://gomezabajo.github.io/Wodel4diac/update-site/</code></li>
-  <li>Select the <strong>Wodel4diac</strong> features and complete the wizard.</li>
-  <li>Restart Eclipse.</li>
-</ol>
-
-<h4>Option B &mdash; Build from source</h4>
-
-<pre><code>git clone https://github.com/gomezabajo/Wodel4diac.git
-cd Wodel4diac
-</code></pre>
-
-<p>Then import the plugin projects into an Eclipse 4diac 3.2.0 workspace (<em>File &rarr; Import &rarr; Existing Projects into Workspace</em>) and launch a runtime Eclipse instance with 4diac 3.2.0 installed.</p>
-
-<h3 id="quick-start">Quick start</h3>
-
-<p style="text-align: justify; text-justify: inter-word;">Real, runnable Wodel programs are included under <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodeltest.extension.examples/mutator"><code>wodeltest.extension.examples/mutator</code></a> (ATL, Java, finite automata, and more). The grammar is defined in <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.dsls.wodel"><code>wodel.dsls.wodel</code></a>.</p>
-
-<ol>
-  <li>Create (or open) a Wodel project and add a <code>.mutator</code> program.</li>
-  <li>Point it at a seed 4diac model and the corresponding meta-model.</li>
-  <li>Run it to generate mutants; the 4diac post-processor writes them out as 4diac projects.</li>
-</ol>
-
-<p style="text-align: justify; text-justify: inter-word;">The mutation language is standard Wodel. As a taste of the real syntax, here is an abridged excerpt from <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodeltest.extension.examples/mutator/fa"><code>testFA1.mutator</code></a>, which ships with the repository (it mutates finite automata; the same operators apply to 4diac / IEC 61499 models through the <code>wodel.fordiac</code> integration):</p>
-
-<pre><code>generate 10 mutants
+    <section id="getting-started" aria-labelledby="getting-started-title">
+      <h2 id="getting-started-title">Getting started with the Wodel DSL</h2>
+      <p>Create a Wodel project with a <code>.mutator</code> file, select a model/metamodel pair, and configure mutation blocks. The example below is adapted from the repository's <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodeltest.extension.examples/mutator/fa">finite-automata examples</a>; it demonstrates Wodel syntax and is <strong>not</strong> a ready-to-run IEC 61499 program.</p>
+      <pre><code>generate 10 mutants
 in "data/out/"
 from "data/model/"
 metamodel "/[@**@]/data/model/DFAAutomaton.ecore"
 
 with blocks {
-	dtr "Delete transition" {
-		remove one Transition
-	}
-	mfs "Set final state to non-final" {
-		modify one State where {isFinal = true} with {reverse(isFinal)}
-	}
-	rts "Set transition's target to a new final state" {
-		s = create State with {name = 'f', isFinal = true}
-		modify target tar from one Transition to s
-	}
-}
-</code></pre>
+  dtr "Delete transition" {
+    remove one Transition
+  }
+  mfs "Set final state to non-final" {
+    modify one State where {isFinal = true} with {reverse(isFinal)}
+  }
+  rts "Set transition target to a new final state" {
+    s = create State with {name = 'f', isFinal = true}
+    modify target tar from one Transition to s
+  }
+}</code></pre>
+      <p>For 4diac, replace the automata metamodel and its classes/features with the types accepted by the selected IEC 61499 model adapter. Generate and inspect mutants first; do not deploy altered control applications without appropriate validation.</p>
+      <p>See the <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodeltest.extension.examples/mutator">Wodel examples</a> and the <a href="https://github.com/gomezabajo/Wodel4diac/blob/main/README.md">repository README</a> for further details.</p>
+    </section>
 
-<p>Generated mutants appear in the output folder and can be opened directly in the 4diac IDE.</p>
+    <section id="components" aria-labelledby="components-title">
+      <h2 id="components-title">Main components</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Module</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><code>wodel.fordiac</code></td><td>Feature defining the 4diac-specific extension.</td></tr>
+            <tr><td><code>wodel.postprocessor.fordiac</code></td><td>4diac post-processing and operational-semantics conversion.</td></tr>
+            <tr><td><code>wodel.run</code></td><td>Wodel execution integration and model-conversion helpers.</td></tr>
+            <tr><td><code>wodel.core</code>, <code>wodel.dsls.wodel*</code></td><td>Mutation language, editor, and core functionality.</td></tr>
+            <tr><td><code>wodel.registry*</code>, <code>wodel.footprints</code></td><td>Mutation metadata and footprint information.</td></tr>
+            <tr><td><code>wodel.semantic.*</code>, <code>wodel.syntactic.*</code></td><td>Model validation, comparison, and related extensions.</td></tr>
+            <tr><td><code>wodel.ai.assistant</code></td><td>Experimental AI-assisted workflows.</td></tr>
+            <tr><td><code>wodel.wodeledu</code>, <code>wodel.wodeltest</code></td><td>Related educational and mutation-testing tooling.</td></tr>
+            <tr><td><code>wodel.updatesite</code></td><td>PDE repository definition; installable p2 artifacts require export/publication.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-<h3 id="project-structure">Project structure</h3>
+    <section id="ecosystem" aria-labelledby="ecosystem-title">
+      <h2 id="ecosystem-title">Wodel ecosystem</h2>
+      <p>Wodel4diac is an IEC 61499 integration within a wider family of model-based engineering tools:</p>
+      <ul>
+        <li><strong><a href="https://gomezabajo.github.io/Wodel/">Wodel</a></strong> — domain-independent model mutation DSL and engine.</li>
+        <li><strong><a href="https://gomezabajo.github.io/Wodel/wodel-edu.html">Wodel-Edu</a></strong> — mutation-driven generation of educational exercises.</li>
+        <li><strong><a href="https://gomezabajo.github.io/Wodel-Test/">Wodel-Test</a></strong> — model-based, language-independent mutation-testing workflows.</li>
+        <li><strong>WoMoT</strong> — a separate Wodel-backed multiobjective search framework. Its deterministic NSGA-II resume/checkpoint and verifiable run-lineage capabilities are <em>not</em> claimed as features of Wodel4diac.</li>
+      </ul>
+    </section>
 
-<p>Wodel4diac is a multi-bundle Eclipse project. The most relevant areas:</p>
+    <section id="ai-assistant" aria-labelledby="ai-assistant-title">
+      <h2 id="ai-assistant-title">AI assistant <span class="experimental-label">Experimental</span></h2>
+      <p>The <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.ai.assistant"><code>wodel.ai.assistant</code></a> plug-in contains task infrastructure, chat-related functionality, and an LLM client for Wodel-oriented assistance. Its source includes support for user-supplied API credentials; do not commit keys to repositories, and review all proposed model or mutator changes before running them.</p>
+      <p>Availability of the source bundle does not guarantee that every task is packaged by the update site or supported by a stable user interface in Eclipse 4diac 3.3.0.</p>
+    </section>
 
-<table>
-  <thead>
-    <tr><th>Area</th><th>Modules</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>4diac integration</strong></td><td><code>wodel.fordiac</code>, <code>wodel.postprocessor.fordiac</code></td></tr>
-    <tr><td><strong>AI assistant</strong></td><td><code>wodel.ai.assistant</code></td></tr>
-    <tr><td>Wodel DSL &amp; core</td><td><code>wodel.core</code>, <code>wodel.dsls.wodel*</code>, <code>wodel.run</code>, <code>wodel.registry*</code>, <code>wodel.extension</code>, <code>wodel.utils</code></td></tr>
-    <tr><td>Post-processing &amp; output</td><td><code>wodel.postprocessor*</code>, <code>wodel.json</code></td></tr>
-    <tr><td>Validation &amp; comparison</td><td><code>wodel.syntactic.*</code>, <code>wodel.semantic.*</code>, <code>wodel.emf.validation</code>, <code>wodel.emf.comparison</code></td></tr>
-    <tr><td>Metrics</td><td><code>wodel.metrics.*</code>, <code>wodel.footprints</code></td></tr>
-    <tr><td>Synthesis</td><td><code>wodel.synthesizer</code>, <code>wodel.seed.synthesis</code></td></tr>
-    <tr><td>ASPLE DSL</td><td><code>wodel.asple</code>, <code>wodel.dsls.asple*</code></td></tr>
-    <tr><td>Education layer</td><td><code>wodel.wodeledu</code>, <code>wodeledu.*</code> (modeldraw, modeltext, mutatext, edutest)</td></tr>
-    <tr><td>Mutation testing</td><td><code>wodel.wodeltest</code></td></tr>
-    <tr><td>Bundled tooling</td><td><code>anatlyzer.*</code> (ATL analysis), <code>efinder.*</code> (model finding), <code>tinytools.*</code></td></tr>
-    <tr><td>Update sites</td><td><code>wodel.updatesite</code>, <code>efinder.updatesite</code></td></tr>
-  </tbody>
-</table>
+    <section id="troubleshooting" aria-labelledby="troubleshooting-title">
+      <h2 id="troubleshooting-title">Troubleshooting</h2>
+      <details><summary>PDE update-site export fails on <code>apitooling.apigeneration</code></summary>
+        <p>Verify that Eclipse <strong>PDE API Tools</strong> and its Ant tasks are installed and available to the build. Restart Eclipse, clean the affected plug-in (for example <code>wodel.semantic.comparison.dfa</code>), regenerate its PDE build scripts if appropriate, and retry the export.</p>
+      </details>
+      <details><summary>Resources unexpectedly resolve below <code>bin/</code></summary>
+        <p>The runtime class code-source location may be a compiled output directory. Resolve the actual project root from a validated configuration file or project descriptor, not the first ancestor containing a copied <code>data</code> directory.</p>
+      </details>
+      <details><summary>An older release is still offered by the update site</summary>
+        <p>Verify the exported <code>features/</code>, <code>plugins/</code> and p2 metadata are deployed at the public URL. Refresh Eclipse's software-site information and inspect installed bundle versions.</p>
+      </details>
+      <details><summary>Generated model output cannot be opened in 4diac</summary>
+        <p>Check the model/metamodel combination, the registered post-processor, the Eclipse workspace/project assumptions and any required <code>.opsem</code> conversion. Generated variants require validation and are not automatically executable FORTE applications.</p>
+      </details>
+    </section>
 
-<h3 id="ai-assistant">AI assistant (experimental)</h3>
-
-<p style="text-align: justify; text-justify: inter-word;">The <a href="https://github.com/gomezabajo/Wodel4diac/tree/main/wodel.ai.assistant"><code>wodel.ai.assistant</code></a> module integrates an experimental <strong>generative-AI assistant</strong> to help users author and refine Wodel mutation programs. It is under active development and not yet considered stable.</p>
-
-<h3 id="citing">Citing</h3>
-
-<p>If you use Wodel4diac or Wodel in academic work, please cite the relevant Wodel publication and, where applicable, the Wodel4diac work (WIP):</p>
-
-<pre><code>@inproceedings{GomezAbajo2016Wodel,
+    <section id="citing" aria-labelledby="citing-title">
+      <h2 id="citing-title">Citing Wodel</h2>
+      <p>If you use Wodel4diac in academic work, cite the underlying Wodel language publication and any relevant 4diac-specific publication:</p>
+      <pre><code>@inproceedings{GomezAbajo2016Wodel,
   author    = {G\'omez-Abajo, Pablo and Guerra, Esther and de Lara, Juan},
   title     = {Wodel: A Domain-Specific Language for Model Mutation},
   booktitle = {Proceedings of the 31st Annual ACM Symposium on Applied Computing (SAC)},
   pages     = {1968--1973},
   year      = {2016},
   doi       = {10.1145/2851613.2851751}
-}
-</code></pre>
-
-<h3 id="acknowledgements">Acknowledgements and third-party components</h3>
-
-<p>Wodel4diac builds upon and redistributes components from several projects, including:</p>
-
-<ul>
-  <li><a href="https://gomezabajo.github.io/Wodel/" itemprop="url" title="Wodel"><img style="vertical-align:middle" src="images/plugins.png" width="20" height="20" alt=""></a>&nbsp;<strong><a href="https://gomezabajo.github.io/Wodel/">Wodel</a></strong> and the Wodel ecosystem (<a href="https://gomezabajo.github.io/Wodel/wodel-edu.html">Wodel-EDU</a>, <a href="https://gomezabajo.github.io/Wodel-Test">Wodel-Test</a>).</li>
-  <li><a href="https://github.com/anatlyzer/anatlyzer" itemprop="url" title="anATLyzer"><img style="vertical-align:middle" src="images/plugins.png" width="20" height="20" alt=""></a>&nbsp;<strong><a href="https://github.com/anatlyzer/anatlyzer">anATLyzer</a></strong> &mdash; static analysis of ATL transformations (<code>anatlyzer.*</code>).</li>
-  <li><a href="https://github.com/jesusc/efinder" itemprop="url" title="eFinder"><img style="vertical-align:middle" src="images/plugins.png" width="20" height="20" alt=""></a>&nbsp;<strong><a href="https://github.com/jesusc/efinder">eFinder</a></strong> &mdash; model finding / constraint solving (<code>efinder.*</code>).</li>
-  <li><a href="https://github.com/jesusc/tiny-tools" itemprop="url" title="tinytools"><img style="vertical-align:middle" src="images/plugins.png" width="20" height="20" alt=""></a>&nbsp;<strong><a href="https://github.com/jesusc/tiny-tools">tinytools</a></strong> &mdash; supporting EMF utilities (<code>tinytools.*</code>).</li>
-</ul>
-
-<p>We also acknowledge the developers of the frameworks used to implement Wodel:</p>
-
-<ul>
-  <li><a href="https://www.eclipse.org/Xtext/" itemprop="url" title="Xtext"><img style="vertical-align:middle" src="images/plugins.png" width="20" height="20" alt=""></a>&nbsp;<strong><a href="https://www.eclipse.org/Xtext/">Xtext</a></strong> supports the development of programming languages and domain-specific languages through a grammar-based approach.</li>
-  <li><a href="https://eclipse.dev/4diac/" itemprop="url" title="Eclipse 4diac"><img style="vertical-align:middle" src="images/plugins.png" width="20" height="20" alt=""></a>&nbsp;<strong><a href="https://eclipse.dev/4diac/">Eclipse 4diac</a></strong> provides the IEC 61499 engineering environment (4diac IDE) and runtime (FORTE) targeted by this extension.</li>
-</ul>
-
-<p style="text-align: justify; text-justify: inter-word;">Developed in the context of work at the Universidad Aut&oacute;noma de Madrid and the Universidad de Murcia.</p>
-
-<h3 id="license">License</h3>
-
-<p style="text-align: justify; text-justify: inter-word;">Distributed under the <strong>Eclipse Public License 2.0 (EPL-2.0)</strong>. See <a href="https://github.com/gomezabajo/Wodel4diac/blob/main/LICENSE"><code>LICENSE</code></a> for details. Redistributed third-party components remain under their respective licenses.</p>
-
-      <footer class="site-footer">
-
-        <span class="site-footer-owner"><a href="https://github.com/gomezabajo/Wodel4diac">Wodel4diac</a> is maintained by <a href="https://github.com/gomezabajo">Pablo G&oacute;mez-Abajo</a>. Please send your comments or questions to <a href="mailto:pablo.gomeza@uam.es">pablo.gomeza@uam.es</a>, or use the <a href="https://github.com/gomezabajo/Wodel4diac/issues">issue tracker</a>.</span><br />
-
-        <span class="site-footer-credits">This website was generated with <a href="https://pages.github.com">GitHub Pages</a> and uses the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
+}</code></pre>
+      <p>A finalized, citable Wodel4diac-specific publication was not identified in the supplied repository documentation.</p>
     </section>
 
+    <section id="acknowledgements" aria-labelledby="acknowledgements-title">
+      <h2 id="acknowledgements-title">Acknowledgements</h2>
+      <p>Wodel4diac builds on <a href="https://github.com/gomezabajo/Wodel">Wodel</a> and the <a href="https://eclipse.dev/4diac/">Eclipse 4diac</a> ecosystem, as well as Eclipse EMF and Xtext. The source tree contains supporting projects associated with <a href="https://github.com/anatlyzer/anatlyzer">anATLyzer</a>, <a href="https://github.com/jesusc/efinder">eFinder</a>, and <a href="https://github.com/jesusc/tiny-tools">tinytools</a>.</p>
+      <p>Developed in the context of research at the Universidad Autónoma de Madrid and the Universidad de Murcia.</p>
+    </section>
 
-      <script src="javascripts/side-menu.js" defer></script>
-  </body>
+    <section id="license" aria-labelledby="license-title">
+      <h2 id="license-title">License</h2>
+      <p>The repository contains the <strong>Eclipse Public License 2.0 (EPL-2.0)</strong>. Refer to the <a href="https://github.com/gomezabajo/Wodel4diac/blob/main/LICENSE">LICENSE</a> file. Redistribution of third-party bundles may involve separate license notices.</p>
+    </section>
+
+    <footer class="site-footer">
+      <span class="site-footer-owner"><a href="https://github.com/gomezabajo/Wodel4diac">Wodel4diac</a> is maintained by <a href="https://github.com/gomezabajo">Pablo Gómez-Abajo</a>. Contact: <a href="mailto:Pablo.GomezA@uam.es">Pablo.GomezA@uam.es</a> · <a href="https://github.com/gomezabajo/Wodel4diac/issues">Issue tracker</a>.</span>
+      <span class="site-footer-credits">Research software · October 2026 website update · Based on the <a href="https://github.com/jasonlong/cayman-theme">Cayman</a> theme, hosted with <a href="https://pages.github.com/">GitHub Pages</a>.</span>
+    </footer>
+  </main>
+  <script src="javascripts/side-menu.js" defer></script>
+</body>
 </html>

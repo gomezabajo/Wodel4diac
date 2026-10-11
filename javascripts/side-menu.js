@@ -1,4 +1,4 @@
-/* side-menu.js — deployable left-side navigation drawer for the Wodel website,
+/* side-menu.js — deployable left-side navigation drawer for the Wodel4diac website,
  * shaped after the Gotten website drawer: brand panel with logo tile, tagline
  * and action pills, section labels, and icon-led option rows.
  *

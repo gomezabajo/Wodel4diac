@@ -1,0 +1,52 @@
+/* Wodel4diac 3.3.0 target — additive styles; original Cayman/Wodel styles retained. */
+html { scroll-behavior: smooth; }
+.skip-link { position: absolute; z-index: 10000; left: 1rem; top: -4rem; background: #fff; color: #431358; border-radius: .35rem; padding: .55rem .9rem; font-weight: 700; }
+.skip-link:focus { top: .5rem; }
+.page-header .brand-link { color: #fff; }
+.page-header .brand-link:hover { color: #fff; text-decoration: none; }
+.page-header .release-eyebrow { display: inline-block; margin: .2rem auto 1rem; padding: .35rem .9rem; border: 1px solid rgba(255,255,255,.4); border-radius: 100px; font-size: .8rem; font-weight: 700; letter-spacing: .02em; background: rgba(15,11,25,.18); }
+.page-header .project-tagline { max-width: 740px; margin-left: auto; margin-right: auto; }
+.hero-actions { max-width: 900px; margin: auto; }
+.main-content { max-width: 60rem; }
+.main-content .eyebrow { margin: 0 0 .15rem; text-transform: uppercase; font-weight: 700; letter-spacing: .09em; color: #9f5160; font-size: .75rem; }
+.main-content section { scroll-margin-top: 2rem; }
+.main-content h2 { font-size: 1.5rem; }
+.main-content h3 { font-size: 1.1rem; }
+.main-content .intro-section h2 { margin-top: .3rem; }
+.main-content .release-facts { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .8rem; margin: 1.5rem 0 0; }
+.release-facts > div { border: 1px solid #e8deeb; background: linear-gradient(160deg, #fbf8fc, #fff); border-radius: .65rem; padding: 1rem; }
+.fact-label { display: block; color: #70747b; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; margin-bottom: .3rem; }
+.release-facts strong { color: #512060; font-size: 1rem; }
+.main-content .feature-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; margin: 1.25rem 0; }
+.feature-card { padding: 1.05rem 1rem; border: 1px solid #e4dce8; border-top: 3px solid #a14483; background: #fff; border-radius: .5rem; box-shadow: 0 3px 14px rgba(46,23,63,.05); }
+.main-content .feature-card h3 { font-size: 1rem; margin: 0 0 .6rem; padding: 0; border: 0; }
+.feature-card p { margin: 0; font-size: .9rem; }
+.main-content .note { margin: 1.15rem 0; padding: .8rem 1rem; border-left: 3px solid #9f5160; background: #faf5fa; border-radius: 0 .35rem .35rem 0; color: #4d4753; font-size: .92rem; }
+.workflow-steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .75rem; margin: 1.3rem 0; }
+.workflow-step { padding: 1rem .85rem; background: #f8f5fa; border: 1px solid #e8deeb; border-radius: .5rem; }
+.workflow-step .step-number { display: block; color: #ae4a79; font-size: .8rem; letter-spacing: .05em; font-weight: 700; margin-bottom: .35rem; }
+.workflow-step strong { display: block; color: #5b1f6e; font-size: .93rem; margin-bottom: .35rem; }
+.workflow-step p { font-size: .86rem; margin: 0; }
+.install-panel { padding: 1.1rem 1.2rem .4rem; background: #fff; border: 1px solid #e8deeb; border-radius: .55rem; margin: 1rem 0; }
+.main-content .install-panel h3 { margin: .25rem 0 .9rem; padding: 0 0 .4rem; }
+.main-content .install-panel pre { white-space: pre; }
+.table-wrap { max-width: 100%; overflow-x: auto; }
+.main-content .table-wrap table { width: 100%; margin-bottom: 1rem; }
+.main-content .table-wrap thead { background: #f5eff8; }
+.main-content .table-wrap th { color: #5b1f6e; }
+.experimental-label { display: inline-block; padding: .15rem .48rem; margin-left: .35rem; border: 1px solid #dbc5df; border-radius: 20px; vertical-align: middle; color: #6d3b70; font-size: .69rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.main-content details { border: 1px solid #e7e1ea; border-radius: .5rem; margin: .5rem 0; padding: .78rem 1rem; background: #fff; }
+.main-content details[open] { background: #fcf9fd; }
+.main-content summary { cursor: pointer; font-weight: 700; color: #5b1f6e; }
+.main-content details p { margin: .7rem 0 .1rem; font-size: .94rem; }
+a:focus-visible, summary:focus-visible { outline: 3px solid #a14483; outline-offset: 3px; }
+@media (max-width: 50em) {
+  .main-content .feature-grid { grid-template-columns: 1fr; }
+  .workflow-steps { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 38em) {
+  .main-content .release-facts, .workflow-steps { grid-template-columns: 1fr; }
+  .page-header .release-eyebrow { font-size: .72rem; }
+  .install-panel { padding: 1rem .8rem .3rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
