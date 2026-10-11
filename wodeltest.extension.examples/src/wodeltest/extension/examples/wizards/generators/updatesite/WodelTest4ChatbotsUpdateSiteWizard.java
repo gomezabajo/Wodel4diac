@@ -53,12 +53,12 @@ import org.eclipse.ui.ide.IDE;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 
+import wodel.dsls.runner.WodelUtils;
 import wodel.utils.manager.IOUtils;
 import wodel.utils.manager.ProjectUtils;
 import wodeltest.extension.examples.builder.WodelTestNature;
 import wodeltest.extension.examples.utils.EclipseHelper;
 import wodeltest.extension.examples.utils.ProjectKind;
-import wodel.dsls.WodelUtils;
 import wodeltest.extension.examples.wizards.WodelTest4ChatbotsWizard;
 import wodeltest.extension.examples.wizards.generators.feature.CreateFeatureProjectOperation;
 
@@ -389,6 +389,7 @@ public class WodelTest4ChatbotsUpdateSiteWizard extends Wizard implements INewWi
 		requiredBundles.add("org.eclipse.jdt.launching");
 		requiredBundles.add("wodeltest.extension");
 		requiredBundles.add("wodeltest.conga.parsers");
+		requiredBundles.add("org.eclipse.ocl.xtext.essentialocl");
 /*		
 		String startingPath = EclipseHelper.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		String[] congaLibraries = new String[] {

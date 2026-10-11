@@ -47,9 +47,9 @@ import org.eclipse.ui.ide.IDE;
 
 import com.google.common.io.CharStreams;
 
+import wodel.dsls.runner.WodelUtils;
 import wodel.utils.manager.IOUtils;
 import wodel.utils.manager.ProjectUtils;
-import wodel.dsls.WodelUtils;
 import wodeledu.dsls.ModelTextUtils;
 import wodeledu.dsls.MutaTextUtils;
 import wodeledu.extension.examples.builder.WodelEduNature;
@@ -165,6 +165,7 @@ public class WodelEduLogicCircuitsWizard extends Wizard implements INewWizard {
 		requiredBundles.add("org.eclipse.e4.core.di");
 		requiredBundles.add("wodeledu.extension");
 		requiredBundles.add("wodeledu.models");
+		requiredBundles.add("org.eclipse.ocl.xtext.essentialocl");
 
 		importPackages.add("org.apache.log4j");
 		importPackages.add("org.eclipse.xtext.generator");

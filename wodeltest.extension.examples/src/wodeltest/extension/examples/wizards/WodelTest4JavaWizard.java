@@ -53,12 +53,12 @@ import org.eclipse.ui.ide.IDE;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 
+import wodel.dsls.runner.WodelUtils;
 import wodel.utils.manager.IOUtils;
 import wodel.utils.manager.ProjectUtils;
 import wodeltest.extension.examples.builder.WodelTestNature;
 import wodeltest.extension.examples.utils.EclipseHelper;
 import wodeltest.extension.examples.utils.ProjectKind;
-import wodel.dsls.WodelUtils;
 
 public class WodelTest4JavaWizard extends Wizard implements INewWizard {
 
@@ -191,6 +191,7 @@ public class WodelTest4JavaWizard extends Wizard implements INewWizard {
 		requiredBundles.add("org.apiguardian.api");
 		//requiredBundles.add("org.hamcrest.core");
 		requiredBundles.add("org.opentest4j");
+		requiredBundles.add("org.eclipse.ocl.xtext.essentialocl");
 /*		bundleClasspath.add("lib/junit-jupiter-api_5.9.2.jar");
 		bundleClasspath.add("lib/junit-jupiter-engine_5.9.2.jar");
 		bundleClasspath.add("lib/junit-jupiter-migrationsupport_5.9.2.jar");

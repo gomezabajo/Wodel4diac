@@ -35,6 +35,7 @@ Import-Package: org.apache.log4j,
  wodeledu.dsls.generator,
  edutest,
  com.google.inject,
+ javax.inject,
  com.google.common.util.concurrent.internal,
  org.antlr.runtime,
  org.eclipse.xtext.xbase.lib

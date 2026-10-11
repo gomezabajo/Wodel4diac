@@ -42,7 +42,7 @@ import org.eclipse.ui.ide.IDE;
 
 import com.google.common.io.CharStreams;
 
-import wodel.dsls.WodelUtils;
+import wodel.dsls.runner.WodelUtils;
 import wodel.project.examples.utils.EclipseHelper;
 import wodel.utils.manager.IOUtils;
 import wodel.utils.manager.ProjectUtils;
@@ -154,6 +154,7 @@ public class LogicCircuitsWizard extends Wizard implements INewWizard {
 		requiredBundles.add("org.eclipse.e4.ui.workbench");
 		requiredBundles.add("org.eclipse.e4.ui.model.workbench");
 		requiredBundles.add("org.eclipse.e4.core.di");
+		requiredBundles.add("org.eclipse.ocl.xtext.essentialocl");
 		
 		bundleClasspath.add(".");
 		bundleClasspath.add("lib/use.jar");
@@ -299,10 +300,10 @@ public class LogicCircuitsWizard extends Wizard implements INewWizard {
 			def += "\t\tn1 = create NOT with {name = random-string(2, 4)}\n";
 			def += "\t\to0 = select one OutputPin in g0->output\n";
 			def += "\t\ti0 = select one InputPin in o0->tar\n";
-			def += "\t\tcreate OutputPin in n1->output \n";
-			def += "\t\t\twith {name = random-string(2, 4), tar = i0}\n";
-			def += "\t\tcreate InputPin in n1->input \n";
-			def += "\t\t\twith {name = random-string(2, 4), src = o0}\n";
+			def += "\t\to1 = create OutputPin in n1->output\n";
+			def += "\t\ti1 = create InputPin in n1->input\n";
+			def += "\t\tmodify o1 with {name = random-string(2, 4), tar = i0}\n";
+			def += "\t\tmodify i1 with {name = random-string(2, 4), src = o0}\n";
 			def += "\t}\n";
 			def += "}\n";
 			if (file.exists()) {

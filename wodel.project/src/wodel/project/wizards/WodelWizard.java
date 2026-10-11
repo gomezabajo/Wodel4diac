@@ -43,11 +43,11 @@ import org.osgi.framework.Bundle;
 
 import wodel.project.properties.WodelPropertiesPage;
 import wodel.project.utils.EclipseHelper;
-import wodel.dsls.WodelUtils;
 
 import com.google.common.io.CharStreams;
 
 import wodel.utils.exceptions.MetaModelNotFoundException;
+import wodel.dsls.runner.WodelUtils;
 import wodel.extension.generator.IGenerator;
 
 /**
@@ -169,6 +169,7 @@ public class WodelWizard extends Wizard implements INewWizard {
 		requiredBundles.add("org.eclipse.e4.ui.workbench");
 		requiredBundles.add("org.eclipse.e4.ui.model.workbench");
 		requiredBundles.add("org.eclipse.e4.core.di");
+		requiredBundles.add("org.eclipse.ocl.xtext.essentialocl");
 		
 		bundleClasspath.add(".");
 		bundleClasspath.add("lib/use.jar");
@@ -242,7 +243,7 @@ public class WodelWizard extends Wizard implements INewWizard {
 				exportedPackages, bundleClasspath, monitor, this.getShell());
 		
 		ProjectUtils.setProject(project);
-
+		
 		((IResource) project).setPersistentProperty(new QualifiedName(Platform.getBundle("wodel.project").getSymbolicName(), WodelPropertiesPage.MODEL_FOLDER_PROPERTY), modelName);
 		((IResource) project).setPersistentProperty(new QualifiedName(Platform.getBundle("wodel.project").getSymbolicName(), WodelPropertiesPage.MUTANT_FOLDER_PROPERTY), mutantName);
 		
@@ -376,6 +377,7 @@ public class WodelWizard extends Wizard implements INewWizard {
 		}
 		String xTextFileName = "file:/" + project.getLocation().toFile().getPath() + "/src/" + fileName;
 		String xmiFileName = "file:/" + project.getLocation().toFile().getPath() + "/" + mutantName + '/' + fileName.replaceAll("mutator", "model");
+		
 		WodelUtils.serialize(xTextFileName, xmiFileName);
 		
 		try {

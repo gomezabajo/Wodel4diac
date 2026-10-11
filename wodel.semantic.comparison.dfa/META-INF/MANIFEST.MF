@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Dfa
+Bundle-Name: DFA semantic comparison
 Bundle-SymbolicName: wodel.semantic.comparison.dfa;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: wodel.semantic.comparison.dfa.Activator

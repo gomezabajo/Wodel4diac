@@ -44,8 +44,8 @@ import com.google.common.io.CharStreams;
 
 import wodel.utils.manager.IOUtils;
 import wodel.utils.manager.ProjectUtils;
+import wodel.dsls.runner.WodelUtils;
 import wodel.project.examples.utils.EclipseHelper;
-import wodel.dsls.WodelUtils;
 
 /**
  * @author Pablo Gomez-Abajo - Wodel new probabilistic automata example project Wizard.
@@ -155,6 +155,7 @@ public class PFSMWizard extends Wizard implements INewWizard {
 		requiredBundles.add("org.eclipse.e4.ui.workbench");
 		requiredBundles.add("org.eclipse.e4.ui.model.workbench");
 		requiredBundles.add("org.eclipse.e4.core.di");
+		requiredBundles.add("org.eclipse.ocl.xtext.essentialocl");
 		
 		bundleClasspath.add(".");
 		bundleClasspath.add("lib/use.jar");

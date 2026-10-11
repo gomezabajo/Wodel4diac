@@ -25,6 +25,7 @@ Import-Package: org.apache.log4j,
  org.eclipse.xtext.util,
  wodeledu.dsls.generator,
  com.google.inject,
+ javax.inject,
  com.google.common.util.concurrent.internal,
  org.antlr.runtime,
  org.eclipse.xtext.xbase.lib

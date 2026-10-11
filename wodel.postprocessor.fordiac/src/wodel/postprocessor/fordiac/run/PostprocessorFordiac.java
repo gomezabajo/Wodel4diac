@@ -102,7 +102,12 @@ public class PostprocessorFordiac implements IPostprocessor {
 			        System.out.println("EventManager.transactions = " + em.getEStructuralFeature("transactions"));
 			    }
 			    
-		        model.load(options);
+			    try {
+			    	model.load(options);
+			    }
+			    catch (Exception ex) {
+			    	ex.printStackTrace();
+			    }
 			}
 			
 			IResource diac = EMFToFordiac.emfToFordiac(model);
