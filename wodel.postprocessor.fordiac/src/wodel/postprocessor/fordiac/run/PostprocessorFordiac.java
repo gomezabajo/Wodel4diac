@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.xmi.UnresolvedReferenceException;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
@@ -37,6 +39,68 @@ import wodel.run.popup.actions.RunFordiacWodel;
  */
 
 public class PostprocessorFordiac implements IPostprocessor {
+	
+
+	private static void loadAllowingUnresolvedReferences(
+			Resource model,
+			Map<?, ?> options)
+					throws IOException {
+
+		try {
+			model.load(options);
+		}
+		catch (IOException exception) {
+
+			List<Resource.Diagnostic> errors =
+					new ArrayList<>(model.getErrors());
+
+			/*
+			 * Only tolerate unresolved XMI references.
+			 *
+			 * Other errors, such as malformed XML,
+			 * incompatible classes or unknown packages,
+			 * must still cause loading to fail.
+			 */
+			boolean onlyUnresolvedReferences =
+					!errors.isEmpty()
+					&& errors.stream().allMatch(
+							error -> error
+							instanceof UnresolvedReferenceException);
+
+			if (!onlyUnresolvedReferences
+					|| model.getContents().isEmpty()) {
+
+				throw exception;
+			}
+
+			/*
+			 * The XML parser completed the model's
+			 * object-tree construction, but some
+			 * references could not be resolved.
+			 *
+			 * Preserve these diagnostics as warnings.
+			 */
+			System.err.println(
+					"[WODEL4DIAC] Loaded model with "
+							+ errors.size()
+							+ " unresolved references: "
+							+ model.getURI());
+
+			for (Resource.Diagnostic error : errors) {
+
+				System.err.println(
+						"[WODEL4DIAC] Unresolved reference"
+								+ " at line " + error.getLine()
+								+ ", column " + error.getColumn()
+								+ ": " + error.getMessage());
+			}
+
+			model.getWarnings().addAll(errors);
+			model.getErrors().removeAll(errors);
+		}
+	}
+
+
 	@Override
 	public String getName() {
 
@@ -102,12 +166,19 @@ public class PostprocessorFordiac implements IPostprocessor {
 			        System.out.println("EventManager.transactions = " + em.getEStructuralFeature("transactions"));
 			    }
 			    
-			    try {
-			    	model.load(options);
-			    }
-			    catch (Exception ex) {
-			    	ex.printStackTrace();
-			    }
+			    loadAllowingUnresolvedReferences(
+			    	    model,
+			    	    options);
+			}
+			
+			if (model.getContents().isEmpty()) {
+
+			    System.err.println(
+			        "[WODEL4DIAC] Cannot post-process "
+			        + "a resource without model contents: "
+			        + model.getURI());
+
+			    return false;
 			}
 			
 			IResource diac = EMFToFordiac.emfToFordiac(model);
@@ -144,7 +215,7 @@ public class PostprocessorFordiac implements IPostprocessor {
 		    saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
 		    saveOptions.put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
 		    saveOptions.put(XMLResource.OPTION_SAVE_TYPE_INFORMATION, Boolean.TRUE);
-		    saveOptions.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
+		    saveOptions.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_RECORD);
 
 		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		    emfRes.save(baos, saveOptions);
